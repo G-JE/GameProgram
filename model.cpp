@@ -25,6 +25,7 @@ void Model::move_pac(){
 
 
 //TODO: detect next tile
+//parameters: coordinate, and direction
 void Model::next_spot(Coordinate c, Direction last_d){
 	switch(last_d) {
 		case UP:
