@@ -8,7 +8,9 @@ using namespace std;
 
 // Constructor initializes the object
 Model::Model() {
-	Rect pacman;
+<<<<<<< HEAD
+
+=======
 	
 }
 
@@ -16,26 +18,17 @@ Model::Model() {
 
 //TODO: make everything go in a direction
 void Model::go(Direction d){
-	direction = d;
+	d = d;
 };
 
 //TODO: make pacman move.
-//*if next Rect is a barrier, direction is STILL
-void Model::move_pac(SDL_Rect &pacman){
-
-	switch(direction) {
-    case UP: pacman.y--; break;
-    case DOWN: pacman.y++; break;
-    case LEFT: pacman.x--; break;
-    case RIGHT: pacman.x++; break;
-    }
-
-	
+//*if next coordinate is a barrier, direction is STILL
+void Model::move_pac(){
 };
 
 
 //TODO: detect next tile
-void Model::next_spot(Rect c, Direction last_d){
+void Model::next_spot(Coordinate c, Direction last_d){
 	switch(last_d) {
 		case UP:
 			c.y--; 
@@ -50,22 +43,23 @@ void Model::next_spot(Rect c, Direction last_d){
 			c.x++; 			
 			break;
 	}
+>>>>>>> Tylor/master
 }
 
 
 //TODO: make the ghosts move relative to pacman
-//*if next Rect is barrier, the ghost chooses another direction
-void Model::move_ghost(Rect pac, Rect &ghost, Direction &d){
+//*if next coordinate is barrier, the ghost chooses another direction
+void Model::move_ghost(Coordinate pac, Coordinate &ghost, Direction &d){
 	
 	int path1, path2, path3, path4;
-	Rect c1,c2,c3,c4;
+	Coordinate c1,c2,c3,c4;
 	
-	/*
+	
 	//TODO: find shortest path
 	c1 = ghost; c1.y--; //up
 	c2 = ghost; c2.y++; //down
 	c3 = ghost; c3.x--; //left
-	c4 = ghost; c4.x++; //right
+	c4 = ghpst; c4.x++; //right
 	
 	if(c1!=wall){
 		path1 = abs (c1.x - pac.x) + abs (c1.y - pac.y);
@@ -91,7 +85,7 @@ void Model::move_ghost(Rect pac, Rect &ghost, Direction &d){
 	
 	
 	if (next_spot(ghost, d)!= wall){
-			//Switch statements to update the ghost Rect
+			//Switch statements to update the ghost coordinate
 		switch(d) {
 			case UP:
 			ghost.y--; 
@@ -123,7 +117,7 @@ void Model::move_ghost(Rect pac, Rect &ghost, Direction &d){
 		}
 	
 	}
-	*/
+	
 };
 
 
@@ -134,4 +128,15 @@ Model::~Model() {
 bool Model::gameOver() {
     return false;
 }
+void Model::go(Direction d) {
+    direction = d;
+}
 
+void Model::move(){
+switch(direction) {
+    case UP: Pacman.y--; break;
+    case DOWN: Pacman.y++; break;
+    case LEFT: Pacman.x--; break;
+    case RIGHT: Pacman.x++; break;
+    }
+}
