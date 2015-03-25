@@ -34,7 +34,10 @@ View::View(string title, int width, int height) {
         return;
     }
     // Load assets
-    Pacman = load("assets/images.jpg");
+    Pacmanright = load("assets/right.jpg");
+	Pacmanleft = load("assets/left.jpg");
+	Pacmanup = load("assets/up.jpg");
+	Pacmandown = load("assets/down.jpg");
 //    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
 //    if (music != NULL) {
 //       Mix_PlayMusic( music, -1 );
@@ -46,7 +49,10 @@ View::View(string title, int width, int height) {
 
 View::~View() {
     SDL_DestroyWindow(window);
-	SDL_FreeSurface(Pacman);
+	SDL_FreeSurface(Pacmanright);
+	SDL_FreeSurface(Pacmanleft);
+	SDL_FreeSurface(Pacmanup);
+	SDL_FreeSurface(Pacmandown);
     IMG_Quit();
     SDL_Quit();
 }
@@ -69,20 +75,56 @@ SDL_Surface* View::load(char * path) {
     return optimizedSurface;
 }
 
-void View::show(Model * model) {
+void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
 	
 	
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
-	SDL_Rect pacdest ;
-	pacdest.x=400;
-	pacdest.y=10;
-	
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
-	SDL_BlitSurface(Pacman, NULL, screen, &pacdest);
+	SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
 	
+	
+	/*
+	switch(d) {
+    case UP:
+	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_BlitSurface(Pacmanup, NULL, screen, &pacdest);
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+    SDL_UpdateWindowSurface(window);
+	break;
+    case DOWN: 
+	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_BlitSurface(Pacmandown, NULL, screen, &pacdest);
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+    SDL_UpdateWindowSurface(window); 
+	break;
+    case LEFT:
+	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_BlitSurface(Pacmanleft, NULL, screen, &pacdest);
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+    SDL_UpdateWindowSurface(window);
+	break;
+    case RIGHT:
+	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+    SDL_UpdateWindowSurface(window); 
+	break;
+    }*/
   }
 
