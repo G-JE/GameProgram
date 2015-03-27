@@ -158,8 +158,14 @@ SDL_Surface* View::load(char * path) {
     return optimizedSurface;
 }
 
+<<<<<<< HEAD
+void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
+	
+=======
 void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 	
+	if(e.type==NULL){
+>>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
@@ -199,34 +205,56 @@ void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 		SDL_SetColorKey(SPills[m], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 		SDL_BlitSurface(SPills[m], NULL, screen, &SPloc[m]);
 	}
+	SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
+	}
+	
+<<<<<<< HEAD
+	/*
+	switch(d) {
+    case UP:
+=======
 	
 	switch(e.key.keysym.sym) {
     case SDLK_UP:
-	SDL_SetColorKey(Pacmanup, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+>>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
+	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
 	SDL_BlitSurface(Pacmanup, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
 	break;
     case SDLK_DOWN: 
-	SDL_SetColorKey(Pacmandown, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
 	SDL_BlitSurface(Pacmandown, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window); 
 	break;
     case SDLK_LEFT:
-	SDL_SetColorKey(Pacmanleft, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
 	SDL_BlitSurface(Pacmanleft, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
 	break;
     case SDLK_RIGHT:
-	SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
+	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
+        0x00, 0x00, 0x00));
 	SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window); 
 	break;
-	}
+    }
   }
 

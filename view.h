@@ -17,7 +17,7 @@ public:
     View(std::string title, int width, int height);
     ~View();
     // Print out the visible stuff in the grid
-    void show(Model * model, SDL_Rect &pacdest/*, Direction d*/);
+    void show(Model * model, SDL_Rect &pacdest, SDL_Event e);
 private:
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	SDL_Surface* background;
