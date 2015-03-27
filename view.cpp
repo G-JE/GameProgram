@@ -75,9 +75,9 @@ SDL_Surface* View::load(char * path) {
     return optimizedSurface;
 }
 
-void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
+void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 	
-	
+	if(e.type==NULL){
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
@@ -85,11 +85,11 @@ void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
 	SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
+	}
 	
 	
-	/*
-	switch(d) {
-    case UP:
+	switch(e.key.keysym.sym) {
+    case SDLK_UP:
 	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
@@ -98,7 +98,7 @@ void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
 	break;
-    case DOWN: 
+    case SDLK_DOWN: 
 	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
@@ -107,7 +107,7 @@ void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window); 
 	break;
-    case LEFT:
+    case SDLK_LEFT:
 	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
@@ -116,7 +116,7 @@ void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
 	break;
-    case RIGHT:
+    case SDLK_RIGHT:
 	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
@@ -125,6 +125,6 @@ void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window); 
 	break;
-    }*/
+    }
   }
 

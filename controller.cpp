@@ -22,6 +22,8 @@ void Controller::loop() {
 	pacdest.x=400;
 	pacdest.y=50;
     SDL_Event e;
+	e.type=NULL;
+	
     unsigned int lastTime = 0, currentTime;
     std::map<SDL_Keycode, Direction> direction;
     direction[SDLK_UP] = UP;
@@ -36,7 +38,7 @@ void Controller::loop() {
             lastTime = currentTime;
         }
         // Do stuff here to animate as necessary
-        view->show(model, pacdest);
+        view->show(model, pacdest, e);
         if (SDL_PollEvent(&e) != 0) {
             switch (e.type) {
             case SDL_QUIT:
@@ -59,6 +61,6 @@ void Controller::loop() {
     }
 	
     // TODO: show something nice?
-    view->show(model, pacdest);
+    view->show(model, pacdest, e);
     SDL_Delay(3000);
 }
