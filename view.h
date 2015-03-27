@@ -19,6 +19,13 @@ public:
     // Print out the visible stuff in the grid
     void show(Model * model, SDL_Rect &pacdest/*, Direction d*/);
 private:
+	bool Collision(SDL_Rect a, SDL_Rect b);
+	SDL_Surface* background;
+	SDL_Rect SPloc[5];
+	SDL_Rect Rect[31];
+	SDL_Surface* Pills[143];
+	SDL_Surface* SPills[5];
+	SDL_Rect checkblock, offset, middle, middle2, pacinit;
     SDL_Window* window;
     SDL_Surface* screen;
     bool fail;

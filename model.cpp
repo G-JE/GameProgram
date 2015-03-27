@@ -8,7 +8,7 @@ using namespace std;
 
 // Constructor initializes the object
 Model::Model() {
-	Rect pacman;
+	SDL_Rect pacman;
 	
 }
 
@@ -35,7 +35,7 @@ void Model::move_pac(SDL_Rect &pacman){
 
 
 //TODO: detect next tile
-void Model::next_spot(Rect c, Direction last_d){
+void Model::next_spot(SDL_Rect c, Direction last_d){
 	switch(last_d) {
 		case UP:
 			c.y--; 
@@ -55,10 +55,10 @@ void Model::next_spot(Rect c, Direction last_d){
 
 //TODO: make the ghosts move relative to pacman
 //*if next Rect is barrier, the ghost chooses another direction
-void Model::move_ghost(Rect pac, Rect &ghost, Direction &d){
+void Model::move_ghost(SDL_Rect pac, SDL_Rect &ghost, Direction &d){
 	
 	int path1, path2, path3, path4;
-	Rect c1,c2,c3,c4;
+	SDL_Rect c1,c2,c3,c4;
 	
 	/*
 	//TODO: find shortest path
