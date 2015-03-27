@@ -24,10 +24,10 @@ void Model::go(Direction d){
 void Model::move_pac(SDL_Rect &pacman){
 
 	switch(direction) {
-    case UP: pacman.y--; break;
-    case DOWN: pacman.y++; break;
-    case LEFT: pacman.x--; break;
-    case RIGHT: pacman.x++; break;
+    case UP: pacman.y += -2; break;
+    case DOWN: pacman.y += 2; break;
+    case LEFT: pacman.x += -2; break;
+    case RIGHT: pacman.x += 2; break;
     }
 
 	

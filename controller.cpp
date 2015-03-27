@@ -5,7 +5,7 @@ using namespace std;
 
 Controller::Controller() {
     model = new Model();
-    view = new View("Game", 1024, 768);
+    view = new View("Game", 640, 480);
 }
 
 Controller::~Controller() {
@@ -19,8 +19,8 @@ https://wiki.libsdl.org/SDL_Event
 */
 void Controller::loop() {
 	SDL_Rect pacdest;
-	pacdest.x=400;
-	pacdest.y=50;
+	pacdest.x=288;
+	pacdest.y=416;
     SDL_Event e;
     unsigned int lastTime = 0, currentTime;
     std::map<SDL_Keycode, Direction> direction;

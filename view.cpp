@@ -45,10 +45,10 @@ View::View(string title, int width, int height) {
 		SPills[k] = NULL;
 	
     // Load assets
-    Pacmanright = load("assets/right.jpg");
-	Pacmanleft = load("assets/left.jpg");
-	Pacmanup = load("assets/up.jpg");
-	Pacmandown = load("assets/down.jpg");
+    Pacmanright = load("assets/pacmanR.png");
+	Pacmanleft = load("assets/Lpacman.png");
+	Pacmanup = load("assets/Upacman.png");
+	Pacmandown = load("assets/Dpacman.png");
 //    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
 //    if (music != NULL) {
 //       Mix_PlayMusic( music, -1 );
@@ -128,6 +128,14 @@ View::~View() {
 	SDL_FreeSurface(Pacmanleft);
 	SDL_FreeSurface(Pacmanup);
 	SDL_FreeSurface(Pacmandown);
+	
+	for (int p = 0; p < 143; p++)
+	SDL_FreeSurface(Pills[p]);
+
+	SDL_FreeSurface(background);
+	
+	for(int sp = 0; sp < 5; sp++ )
+	SDL_FreeSurface(SPills[sp]);
     IMG_Quit();
     SDL_Quit();
 }
@@ -160,11 +168,13 @@ void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
 	background = load("assets/background.jpg");
 	SDL_BlitSurface(background, NULL, screen, NULL);
 		int p = 0;
+		offset.x = 0;		offset.y = 0;
+		checkblock.x = 0;	checkblock.y = 0;
 	
-	for (int x = 0; x < 20; x++){
+	for (int x = 0; x < 19; x++){
 		checkblock.y = 0;
 		offset.y = 0;
-		for (int y = 0; y < 15; y++){
+		for (int y = 0; y < 14; y++){
 			for (int b = 0; b < 31; b++){
 			if (Collision(checkblock, Rect[b]) || Collision(checkblock, middle)
 				|| Collision(checkblock, middle2) || Collision(pacinit, checkblock)){
@@ -189,6 +199,7 @@ void View::show(Model * model, SDL_Rect &pacdest/*, Direction d*/) {
 		SDL_SetColorKey(SPills[m], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 		SDL_BlitSurface(SPills[m], NULL, screen, &SPloc[m]);
 	}
+	SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
