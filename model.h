@@ -2,18 +2,15 @@
 #define _MODEL_H
 
 enum State { RUN, SEEK };
-enum Direction { UP, DOWN, LEFT, RIGHT, STILL };
+enum Direction { UP, DOWN, LEFT, RIGHT, STILL, DEAD };
 
-typedef struct{
-	int x;
-	int y;
-} Coordinate;
+typedef SDL_Rect Rect;
 
 // The model manages the state of the game
 class Model {
 public:
     // Constructor (instantiates object)
-    Model();
+    Model(int w, int h);
     // Destructor deletes all dynamically allocated stuff
     ~Model();
     // Is the game over?
@@ -28,13 +25,13 @@ public:
 	void next_spot(Coordinate c, Direction last_d);
 	
     // instantiate objects
-	Coordinate pacman;
+	Rect pacman;
 	// ghosts 
-	Coordinate ghost1;
-	Coordinate ghost2;
+	Rect ghost1;
+	Rect ghost2;
 	
-	
-	
+	Direction pac_d;
+	Direction ghost_d;
 	Direction last_d;
 	// big food pill
 	

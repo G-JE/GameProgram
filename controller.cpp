@@ -4,8 +4,8 @@
 using namespace std;
 
 Controller::Controller() {
-    model = new Model();
-    view = new View("Game", 1024, 768);
+    model = new Model(20, 15);
+    view = new View("Game", 640, 480); //size of gunnars' screen?
 }
 
 Controller::~Controller() {

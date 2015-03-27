@@ -7,7 +7,26 @@
 using namespace std;
 
 // Constructor initializes the object
-Model::Model() {
+Model::Model(int w, int h) {
+
+	width = w;
+	height = h;
+	
+	Rect pacman;
+	Direction pac_d;
+	Direction ghost_d;
+	
+	//Initialize ghost as sdl_rect
+	Rect ghost1;
+	
+	ghost1.x = 64;
+	ghost1.y = 64;
+	ghost.w = 32;
+	ghost.h = 32;
+	
+	pac_d = STILL;
+	ghost_d = DOWN;
+	
 	
 }
 
@@ -26,7 +45,7 @@ void Model::move_pac(){
 
 //TODO: detect next tile
 //parameters: coordinate, and direction
-void Model::next_spot(Coordinate c, Direction last_d){
+void Model::next_spot(Rect c, Direction last_d){
 	switch(last_d) {
 		case UP:
 			c.y--; 
@@ -46,37 +65,37 @@ void Model::next_spot(Coordinate c, Direction last_d){
 
 //TODO: make the ghosts move relative to pacman
 //*if next coordinate is barrier, the ghost chooses another direction
-void Model::move_ghost(Coordinate pac, Coordinate &ghost, Direction &d){
+void Model::move_ghost(Rect pac, Rect &ghost, Direction &d){
 	
 	int path1, path2, path3, path4;
-	Coordinate c1,c2,c3,c4;
+	Rect c1,c2,c3,c4;
 	
 	
 	//TODO: find shortest path
-	c1 = ghost; c1.y--; //up
-	c2 = ghost; c2.y++; //down
-	c3 = ghost; c3.x--; //left
-	c4 = ghpst; c4.x++; //right
+	c1 = ghost; c1.y - 32; //up
+	c2 = ghost; c2.y + 32; //down
+	c3 = ghost; c3.x - 32; //left
+	c4 = ghost; c4.x + 32; //right
 	
-	if(c1!=wall){
+	if(!Collision(c1)){
 		path1 = abs (c1.x - pac.x) + abs (c1.y - pac.y);
 	}else{
-		path1 == 1000;
+		path1 == 10000006;
 	}
-	if(c2!=wall){
+	if(!Collision(c2)){
 		path = abs (c2.x - pac.x) + abs (c2.y - pac.y);
 	}else{
-		path2 == 1001;
+		path2 == 10000003;
 	}
-	if(c3!=wall){
+	if(!Collision(c3)){
 		path3 = abs (c3.x - pac.x) + abs (c3.y - pac.y);
 	}else{
-		path3 == 1003;
+		path3 == 1000000002;
 	}
-	if(c4!=wall){
+	if(!Collision(c4)){
 		path4 = abs (c4.x - pac.x) + abs (c4.y - pac.y);
 	}else{
-		path4 == 1004;
+		path4 == 100000001;
 	}
 	
 	
@@ -85,16 +104,16 @@ void Model::move_ghost(Coordinate pac, Coordinate &ghost, Direction &d){
 			//Switch statements to update the ghost coordinate
 		switch(d) {
 			case UP:
-			ghost.y--; 
+			ghost.y - 32; 
 			break;
 		case DOWN: 
-			ghost.y++; 
+			ghost.y + 32; 
 			break;
 		case LEFT: 
-			ghost.x--; 
+			ghost.x - 32; 
 			break;
 		case RIGHT: 
-			ghost.x++; 			
+			ghost.x + 32; 			
 			break;
 		
 		}

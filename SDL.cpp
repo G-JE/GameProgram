@@ -172,6 +172,9 @@ Rect[30].x = 544; 	Rect[30].y = 64; 	Rect[30].w = 32; 	Rect[30].h = 128;
 		checkblock.x += 32;
 		offset.x += 32;
 	}
+	
+	//trying to get the ghost to the screen
+	//Ghost = load(screen, "pacman-ghost.png");
 
 	for (int m = 0; m < 5; m++){
 		SPills[m] = load(screen, "Superpills.png");
