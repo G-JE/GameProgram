@@ -7,11 +7,8 @@
 #include <SDL2/SDL_ttf.h>
 
 enum State { RUN, SEEK };
-enum Direction { UP, DOWN, LEFT, RIGHT, STILL, DEAD };
+enum Direction { UP, DOWN, LEFT, RIGHT, STILL };
 
-<<<<<<< HEAD
-typedef SDL_Rect Rect;
-=======
 
 typedef struct {
     SDL_Rect object;
@@ -20,13 +17,12 @@ typedef struct {
 	
    
 } Rect;
->>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 
 // The model manages the state of the game
 class Model {
 public:
     // Constructor (instantiates object)
-    Model(int w, int h);
+    Model();
     // Destructor deletes all dynamically allocated stuff
     ~Model();
 	void go(Direction d);
@@ -47,14 +43,9 @@ public:
 	// ghosts 
 	Rect ghost1;
 	Rect ghost2;
-<<<<<<< HEAD
-=======
 	
 	
->>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 	
-	Direction pac_d;
-	Direction ghost_d;
 	Direction last_d;
 	// big food pill
 	

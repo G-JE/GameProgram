@@ -160,7 +160,7 @@ Rect[30].x = 544; 	Rect[30].y = 64; 	Rect[30].w = 32; 	Rect[30].h = 128;
 				}
 			if (b == 30 && !Collision(checkblock, Rect[b]) && !Collision(checkblock, middle)
 				&& !Collision(checkblock, middle2) && !Collision(pacinit, checkblock)){
-				Pills[p] = load(screen, "pills.png"); // loads image to surface
+				Pills[p] = load(screen, "pill.png"); // loads image to surface
 				SDL_SetColorKey(Pills[p], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00)); // sets black to transparent
 				SDL_BlitSurface(Pills[p], NULL, screen, &offset); // prints pill
 				p++;
@@ -177,7 +177,7 @@ Rect[30].x = 544; 	Rect[30].y = 64; 	Rect[30].w = 32; 	Rect[30].h = 128;
 	//Ghost = load(screen, "pacman-ghost.png");
 
 	for (int m = 0; m < 5; m++){
-		SPills[m] = load(screen, "Superpills.png");
+		SPills[m] = load(screen, "Superpill.png");
 		SDL_SetColorKey(SPills[m], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 		SDL_BlitSurface(SPills[m], NULL, screen, &SPloc[m]);
 	}

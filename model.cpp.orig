@@ -7,8 +7,9 @@
 using namespace std;
 
 // Constructor initializes the object
+<<<<<<< HEAD
 Model::Model(int w, int h) {
-	Rect pacman;
+
 	width = w;
 	height = h;
 	
@@ -27,6 +28,10 @@ Model::Model(int w, int h) {
 	pac_d = STILL;
 	ghost_d = DOWN;
 	
+=======
+Model::Model() {
+	Rect pacman;
+>>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 	
 }
 
@@ -53,7 +58,10 @@ void Model::move_pac(SDL_Rect &pacman){
 
 
 //TODO: detect next tile
-void Model::next_spot(Rect c, Direction last_d){
+<<<<<<< HEAD
+//parameters: coordinate, and direction
+=======
+>>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 void Model::next_spot(Rect c, Direction last_d){
 	switch(last_d) {
 		case UP:
@@ -73,18 +81,33 @@ void Model::next_spot(Rect c, Direction last_d){
 
 
 //TODO: make the ghosts move relative to pacman
+<<<<<<< HEAD
+//*if next coordinate is barrier, the ghost chooses another direction
+=======
 //*if next Rect is barrier, the ghost chooses another direction
+>>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 void Model::move_ghost(Rect pac, Rect &ghost, Direction &d){
 	
 	int path1, path2, path3, path4;
 	Rect c1,c2,c3,c4;
+<<<<<<< HEAD
+	
+=======
+>>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 	
 	/*
 	//TODO: find shortest path
+<<<<<<< HEAD
 	c1 = ghost; c1.y - 32; //up
 	c2 = ghost; c2.y + 32; //down
 	c3 = ghost; c3.x - 32; //left
 	c4 = ghost; c4.x + 32; //right
+=======
+	c1 = ghost; c1.y--; //up
+	c2 = ghost; c2.y++; //down
+	c3 = ghost; c3.x--; //left
+	c4 = ghost; c4.x++; //right
+>>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 	
 	if(!Collision(c1)){
 		path1 = abs (c1.x - pac.x) + abs (c1.y - pac.y);
