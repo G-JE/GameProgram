@@ -1,58 +1,74 @@
 #ifndef _MODEL_H
 #define _MODEL_H
+#define SDL_MAIN_HANDLED
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 
 enum State { RUN, SEEK };
-enum Direction { UP, DOWN, LEFT, RIGHT, STILL };
+enum Direction { UP, DOWN, LEFT, RIGHT, STILL, DEAD };
 
-typedef struct{
+<<<<<<< HEAD
+typedef SDL_Rect Rect;
+=======
+
+<<<<<<< HEAD
+typedef struct {
+    SDL_Rect object;
 	int x;
 	int y;
-} Coordinate;
+	
+   
+} Rect;
+>>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 
-typedef struct {
-    unsigned int x;
-    unsigned int y;
-} Coordinate;
-
+=======
+>>>>>>> ada265a0cf6603d7b39aaa80de1bec90db77d457
 // The model manages the state of the game
 class Model {
 public:
     // Constructor (instantiates object)
-    Model();
+    Model(int w, int h);
     // Destructor deletes all dynamically allocated stuff
     ~Model();
 	void go(Direction d);
 	void move();
     // Is the game over?
     bool gameOver();
-<<<<<<< HEAD
-    // TODO: Put your stuff here
-	Coordinate Pacman;
-	Direction direction;
-=======
 	//Make the object move
-	void go(Direction d);
 	// Move (if the next spot is a wall d = STILL)
-	void move_pac();
+	Direction direction;
+	void move_pac(SDL_Rect &pacman);
 	// Move the ghosts (if the next spot is a wall, switch direction)
-	void move_ghost(Coordinate pac, Coordinate &ghost, Direction &d);
+	void move_ghost(SDL_Rect pac, SDL_Rect &ghost, Direction &d);
 	//Next spot detection
-	void next_spot(Coordinate c, Direction last_d);
+	void next_spot(SDL_Rect c, Direction last_d);
+	bool collision(SDL_Rect pacman);
 	
     // instantiate objects
-	Coordinate pacman;
+	SDL_Rect pacman;
 	// ghosts 
-	Coordinate ghost1;
-	Coordinate ghost2;
+<<<<<<< HEAD
+	Rect ghost1;
+	Rect ghost2;
+<<<<<<< HEAD
+=======
+=======
+	SDL_Rect ghost1;
+	SDL_Rect ghost2;
+>>>>>>> ada265a0cf6603d7b39aaa80de1bec90db77d457
 	
 	
+>>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 	
+	Direction pac_d;
+	Direction ghost_d;
 	Direction last_d;
 	// big food pill
 	
 private:
 	int score;
->>>>>>> Tylor/master
 };
 
 #endif
