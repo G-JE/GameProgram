@@ -174,10 +174,10 @@ SDL_Surface* View::load(char * path) {
 
 void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 
-	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+	/*SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
-        0x00, 0x00, 0x00));
+        0x00, 0x00, 0x00));*/
 		
 
 	SDL_BlitSurface(background, NULL, screen, NULL);
