@@ -33,6 +33,7 @@ public:
 	
     // instantiate objects
 	SDL_Rect pacman;
+	SDL_Rect Rect[31];
 	// ghosts 
 	SDL_Rect ghost1;
 	SDL_Rect ghost2;

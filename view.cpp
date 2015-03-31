@@ -49,6 +49,12 @@ View::View(string title, int width, int height) {
 	Pacmanleft = load("assets/Lpacman.png");
 	Pacmanup = load("assets/Upacman.png");
 	Pacmandown = load("assets/Dpacman.png");
+	
+	SDL_SetColorKey(Pacmanup, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_SetColorKey(Pacmanleft, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_SetColorKey(Pacmandown, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	
 //    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
 //    if (music != NULL) {
 //       Mix_PlayMusic( music, -1 );
@@ -100,7 +106,8 @@ Rect[30].x = 544; 	Rect[30].y = 64; 	Rect[30].w = 32; 	Rect[30].h = 128;
 	checkblock.h = 32;	checkblock.w = 32;	checkblock.x = 0;	checkblock.y = 0;
 	pacinit.x = 288;	pacinit.y = 416; 	pacinit.w = 32; 	pacinit.h = 32;
 	offset.x = 0;		offset.y = 0;
-
+	
+	n = 0;
 }
 
 bool View::Collision(SDL_Rect a, SDL_Rect b){
@@ -159,8 +166,8 @@ SDL_Surface* View::load(char * path) {
 }
 
 void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
-	
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+
+	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
@@ -194,6 +201,10 @@ void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 		checkblock.x += 32;
 		offset.x += 32;
 	}
+	
+	if (n == 0){
+		SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
+	}
 	for (int m = 0; m < 5; m++){
 		SPills[m] = load("assets/Superpill.png");
 		SDL_SetColorKey(SPills[m], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
@@ -201,32 +212,33 @@ void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 	}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
-	
+
 	switch(e.key.keysym.sym) {
     case SDLK_UP:
-	SDL_SetColorKey(Pacmanup, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	//SDL_SetColorKey(Pacmanup, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_BlitSurface(Pacmanup, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
 	break;
     case SDLK_DOWN: 
-	SDL_SetColorKey(Pacmandown, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	//SDL_SetColorKey(Pacmandown, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_BlitSurface(Pacmandown, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window); 
 	break;
     case SDLK_LEFT:
-	SDL_SetColorKey(Pacmanleft, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	//SDL_SetColorKey(Pacmanleft, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_BlitSurface(Pacmanleft, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
 	break;
     case SDLK_RIGHT:
-	SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	//SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window); 
 	break;
 	}
+	n++;
   }
 

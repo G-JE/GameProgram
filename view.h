@@ -37,5 +37,6 @@ private:
 //    Mix_Music * music;
 //    Mix_Chunk * food;
     TTF_Font * font;
+	int n;
 };
 #endif
