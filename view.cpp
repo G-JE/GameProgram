@@ -37,12 +37,16 @@ View::View(string title, int width, int height) {
     }
 	
 	//initialize Pills
-	for (int i = 0; i < 143; i++)
-		Pills[i] = NULL;
+	for (int i = 0; i < 143; i++){
+		Pills[i] = load("assets/pill.png");
+		SDL_SetColorKey(Pills[i], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
+	}
 
 	//SP initialize
-	for (int k = 0; k < 5; k++)
-		SPills[k] = NULL;
+	for (int k = 0; k < 5; k++){
+		SPills[k] = load("assets/Superpill.png");
+		SDL_SetColorKey(SPills[k], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
+	}
 	
     // Load assets
     Pacmanright = load("assets/pacmanR.png");
@@ -50,10 +54,13 @@ View::View(string title, int width, int height) {
 	Pacmanup = load("assets/Upacman.png");
 	Pacmandown = load("assets/Dpacman.png");
 	
+	
 	SDL_SetColorKey(Pacmanup, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(Pacmanleft, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(Pacmandown, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	background = load("assets/background.jpg");
+	
 	
 //    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
 //    if (music != NULL) {
@@ -172,7 +179,7 @@ void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 		
-	background = load("assets/background.jpg");
+
 	SDL_BlitSurface(background, NULL, screen, NULL);
 		int p = 0;
 		offset.x = 0;		offset.y = 0;
@@ -189,8 +196,6 @@ void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 				}
 			if (b == 30 && !Collision(checkblock, Rect[b]) && !Collision(checkblock, middle)
 				&& !Collision(checkblock, middle2) && !Collision(pacinit, checkblock)){
-				Pills[p] = load("assets/pill.png"); // loads image to surface
-				SDL_SetColorKey(Pills[p], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00)); // sets black to transparent
 				SDL_BlitSurface(Pills[p], NULL, screen, &offset); // prints pill
 				p++;
 				}
@@ -206,8 +211,6 @@ void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 		SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
 	}
 	for (int m = 0; m < 5; m++){
-		SPills[m] = load("assets/Superpill.png");
-		SDL_SetColorKey(SPills[m], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 		SDL_BlitSurface(SPills[m], NULL, screen, &SPloc[m]);
 	}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)

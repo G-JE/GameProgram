@@ -33,7 +33,7 @@ void Controller::loop() {
 	
     while(!model->gameOver()) {
         currentTime = SDL_GetTicks();
-		   if (currentTime > lastTime + 10) {
+		   if (currentTime > lastTime + 30) {
             model->move_pac(pacdest);
             lastTime = currentTime;
         }
