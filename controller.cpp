@@ -34,11 +34,14 @@ void Controller::loop() {
     while(!model->gameOver()) {
         currentTime = SDL_GetTicks();
 		   if (currentTime > lastTime + 30) {
-            model->move_pac(pacdest);
+			   for (int i = 0; i<8; i++){
+			   model->move_pac(pacdest);
+			   SDL_Delay(8);
+			   view->show(model, pacdest, e);}
             lastTime = currentTime;
         }
         // Do stuff here to animate as necessary
-        view->show(model, pacdest, e);
+        //view->show(model, pacdest, e);
         if (SDL_PollEvent(&e) != 0) {
             switch (e.type) {
             case SDL_QUIT:

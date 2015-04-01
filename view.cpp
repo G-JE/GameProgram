@@ -37,10 +37,11 @@ View::View(string title, int width, int height) {
     }
 	
 	//initialize Pills
-	for (int i = 0; i < 143; i++){
+	for (int i = 0; i < 124; i++){
 		Pills[i] = load("assets/pill.png");
 		SDL_SetColorKey(Pills[i], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 	}
+	
 
 	//SP initialize
 	for (int k = 0; k < 5; k++){
@@ -143,7 +144,7 @@ View::~View() {
 	SDL_FreeSurface(Pacmanup);
 	SDL_FreeSurface(Pacmandown);
 	
-	for (int p = 0; p < 143; p++)
+	for (int p = 0; p < 124; p++)
 	SDL_FreeSurface(Pills[p]);
 
 	SDL_FreeSurface(background);

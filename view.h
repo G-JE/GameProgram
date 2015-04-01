@@ -23,7 +23,7 @@ private:
 	SDL_Surface* background;
 	SDL_Rect SPloc[5];
 	SDL_Rect Rect[31];
-	SDL_Surface* Pills[143];
+	SDL_Surface* Pills[124];
 	SDL_Surface* SPills[5];
 	SDL_Rect checkblock, offset, middle, middle2, pacinit;
     SDL_Window* window;

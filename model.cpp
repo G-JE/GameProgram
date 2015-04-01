@@ -4,14 +4,13 @@
 #include <cmath>
 #include <iostream>
 
-
 using namespace std;
 
 // Constructor initializes the object
 Model::Model() {
 	SDL_Rect pacman;
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
-	Rect[0].x = 0; 		Rect[0].y = 0; 		Rect[0].w = 32; 	Rect[0].h = 640;
+Rect[0].x = 0; 		Rect[0].y = 0; 		Rect[0].w = 32; 	Rect[0].h = 640;
 Rect[1].x = 32; 	Rect[1].y = 0; 		Rect[1].w = 608; 	Rect[1].h = 32;
 Rect[2].x = 0; 		Rect[2].y = 448; 	Rect[2].w = 640; 	Rect[2].h = 32;
 Rect[3].x = 608;	Rect[3].y = 32; 	Rect[3].w = 32;		Rect[3].h = 416;
@@ -42,7 +41,7 @@ Rect[27].x = 480; 	Rect[27].y = 288; 	Rect[27].w = 96; 	Rect[27].h = 32;
 Rect[28].x = 544; 	Rect[28].y = 320; 	Rect[28].w = 32; 	Rect[28].h = 96;
 Rect[29].x = 544; 	Rect[29].y = 224; 	Rect[29].w = 32; 	Rect[29].h = 32;
 Rect[30].x = 544; 	Rect[30].y = 64; 	Rect[30].w = 32; 	Rect[30].h = 128;
-}
+};
 
 bool Model::collision(SDL_Rect pac){
 	int lefta, leftb, righta, rightb, topa, topb, bottoma, bottomb;
@@ -123,12 +122,12 @@ void Model::go(Direction d){
 //*if next Rect is a barrier, direction is STILL
 void Model::move_pac(SDL_Rect &pacman){
 
-
+	
 	switch(direction) {
     case UP: if (!collision(pacman)){pacman.y += -2;} break;
     case DOWN: if (!collision(pacman)){pacman.y += 2;} break;
     case LEFT: if (!collision(pacman)){pacman.x += -2;} break;
-    case RIGHT: if (!collision(pacman)){pacman.x += 2;} break;
+    case RIGHT: if (!collision(pacman)){pacman.x += 2;}break;
     }
 
 	
@@ -151,7 +150,7 @@ void Model::next_spot(SDL_Rect c, Direction last_d){
 			c.x++; 			
 			break;
 	}
-}
+};
 
 
 //TODO: make the ghosts move relative to pacman
@@ -230,9 +229,9 @@ void Model::move_ghost(SDL_Rect pac, SDL_Rect &ghost, Direction &d){
 
 // Destructor deletes dynamically allocated memory
 Model::~Model() {
-}
+};
 
 bool Model::gameOver() {
     return false;
-}
+};
 
