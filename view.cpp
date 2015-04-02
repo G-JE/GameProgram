@@ -37,18 +37,32 @@ View::View(string title, int width, int height) {
     }
 	
 	//initialize Pills
-	for (int i = 0; i < 143; i++)
-		Pills[i] = NULL;
+	for (int i = 0; i < 124; i++){
+		Pills[i] = load("assets/pill.png");
+		SDL_SetColorKey(Pills[i], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
+	}
+	
 
 	//SP initialize
-	for (int k = 0; k < 5; k++)
-		SPills[k] = NULL;
+	for (int k = 0; k < 5; k++){
+		SPills[k] = load("assets/Superpill.png");
+		SDL_SetColorKey(SPills[k], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
+	}
 	
     // Load assets
     Pacmanright = load("assets/pacmanR.png");
 	Pacmanleft = load("assets/Lpacman.png");
 	Pacmanup = load("assets/Upacman.png");
 	Pacmandown = load("assets/Dpacman.png");
+	
+	
+	SDL_SetColorKey(Pacmanup, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_SetColorKey(Pacmanleft, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_SetColorKey(Pacmandown, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	background = load("assets/background.jpg");
+	
+	
 //    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
 //    if (music != NULL) {
 //       Mix_PlayMusic( music, -1 );
@@ -100,7 +114,8 @@ Rect[30].x = 544; 	Rect[30].y = 64; 	Rect[30].w = 32; 	Rect[30].h = 128;
 	checkblock.h = 32;	checkblock.w = 32;	checkblock.x = 0;	checkblock.y = 0;
 	pacinit.x = 288;	pacinit.y = 416; 	pacinit.w = 32; 	pacinit.h = 32;
 	offset.x = 0;		offset.y = 0;
-
+	
+	n = 0;
 }
 
 bool View::Collision(SDL_Rect a, SDL_Rect b){
@@ -129,7 +144,7 @@ View::~View() {
 	SDL_FreeSurface(Pacmanup);
 	SDL_FreeSurface(Pacmandown);
 	
-	for (int p = 0; p < 143; p++)
+	for (int p = 0; p < 124; p++)
 	SDL_FreeSurface(Pills[p]);
 
 	SDL_FreeSurface(background);
@@ -159,13 +174,13 @@ SDL_Surface* View::load(char * path) {
 }
 
 void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
-	
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
+
+	/*SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,
         0x00, 0x00, 0x00));
 	SDL_FillRect(screen, &pacdest, SDL_MapRGB(screen->format,
-        0x00, 0x00, 0x00));
+        0x00, 0x00, 0x00));*/
 		
-	background = load("assets/background.jpg");
+
 	SDL_BlitSurface(background, NULL, screen, NULL);
 		int p = 0;
 		offset.x = 0;		offset.y = 0;
@@ -182,8 +197,6 @@ void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 				}
 			if (b == 30 && !Collision(checkblock, Rect[b]) && !Collision(checkblock, middle)
 				&& !Collision(checkblock, middle2) && !Collision(pacinit, checkblock)){
-				Pills[p] = load("assets/pill.png"); // loads image to surface
-				SDL_SetColorKey(Pills[p], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00)); // sets black to transparent
 				SDL_BlitSurface(Pills[p], NULL, screen, &offset); // prints pill
 				p++;
 				}
@@ -194,39 +207,45 @@ void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 		checkblock.x += 32;
 		offset.x += 32;
 	}
+	for (p=0;p<124;p++) {
+		if(pacdest.x==Pills[p].x &&pacdest.y==Pills[].y)
+			SDL_FreeSurface(Pills[p]);
+	}		
+	if (n == 0){
+		SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
+	}
 	for (int m = 0; m < 5; m++){
-		SPills[m] = load("assets/Superpill.png");
-		SDL_SetColorKey(SPills[m], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 		SDL_BlitSurface(SPills[m], NULL, screen, &SPloc[m]);
 	}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
-	
+
 	switch(e.key.keysym.sym) {
     case SDLK_UP:
-	SDL_SetColorKey(Pacmanup, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	//SDL_SetColorKey(Pacmanup, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_BlitSurface(Pacmanup, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
 	break;
     case SDLK_DOWN: 
-	SDL_SetColorKey(Pacmandown, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	//SDL_SetColorKey(Pacmandown, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_BlitSurface(Pacmandown, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window); 
 	break;
     case SDLK_LEFT:
-	SDL_SetColorKey(Pacmanleft, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	//SDL_SetColorKey(Pacmanleft, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_BlitSurface(Pacmanleft, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
 	break;
     case SDLK_RIGHT:
-	SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	//SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window); 
 	break;
 	}
+	n++;
   }
 
