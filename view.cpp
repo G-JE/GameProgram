@@ -1,5 +1,6 @@
 #include "view.h"
 
+
 using namespace std;
 // Initialize Barriers
 
@@ -43,12 +44,16 @@ View::View(string title, int width, int height) {
 	//SP initialize
 	for (int k = 0; k < 5; k++)
 		SPills[k] = NULL;
+		
+	
+	
 	
     // Load assets
     Pacmanright = load("assets/pacmanR.png");
 	Pacmanleft = load("assets/Lpacman.png");
 	Pacmanup = load("assets/Upacman.png");
 	Pacmandown = load("assets/Dpacman.png");
+	Ghost = load("assets/pacman-ghost.png");
 //    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
 //    if (music != NULL) {
 //       Mix_PlayMusic( music, -1 );
@@ -98,7 +103,7 @@ Rect[30].x = 544; 	Rect[30].y = 64; 	Rect[30].w = 32; 	Rect[30].h = 128;
 	middle.x = 224;		middle.y = 192;		middle.h = 96;		middle.w = 192;
 	middle2.x = 320;	middle2.y = 160;	middle2.w = 32;		middle2.h = 32;
 	checkblock.h = 32;	checkblock.w = 32;	checkblock.x = 0;	checkblock.y = 0;
-	pacinit.x = 288;	pacinit.y = 416; 	pacinit.w = 32; 	pacinit.h = 32;
+	pacinit.x = 288;	pacinit.y = 416; 	pacinit.w = 32; 	pacinit.h = 32;	
 	offset.x = 0;		offset.y = 0;
 
 }
@@ -128,6 +133,7 @@ View::~View() {
 	SDL_FreeSurface(Pacmanleft);
 	SDL_FreeSurface(Pacmanup);
 	SDL_FreeSurface(Pacmandown);
+	SDL_FreeSurface(Ghost);
 	
 	for (int p = 0; p < 143; p++)
 	SDL_FreeSurface(Pills[p]);
@@ -199,8 +205,21 @@ void View::show(Model * model, SDL_Rect &pacdest, SDL_Event e) {
 		SDL_SetColorKey(SPills[m], SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 		SDL_BlitSurface(SPills[m], NULL, screen, &SPloc[m]);
 	}
+	
+	//SDL_BlitSurface(Ghost, NULL, screen, &ghost_init);
+	SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
+	
+	
+	//draw the ghost
+	SDL_Rect dest;
+	dest.x = model->ghost1.x;
+	dest.y = model->ghost1.y;
+	SDL_BlitSurface(Ghost, NULL, screen, &dest);
+	
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
     SDL_UpdateWindowSurface(window);
+	
+	
 	
 	switch(e.key.keysym.sym) {
     case SDLK_UP:

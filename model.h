@@ -7,13 +7,9 @@
 #include <SDL2/SDL_ttf.h>
 
 enum State { RUN, SEEK };
-enum Direction { UP, DOWN, LEFT, RIGHT, STILL, DEAD };
+enum Direction { UP, DOWN, LEFT, RIGHT, STILL };
 
-<<<<<<< HEAD
-typedef SDL_Rect Rect;
-=======
 
->>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
 // The model manages the state of the game
 class Model {
 public:
@@ -30,26 +26,26 @@ public:
 	Direction direction;
 	void move_pac(SDL_Rect &pacman);
 	// Move the ghosts (if the next spot is a wall, switch direction)
-	void move_ghost(SDL_Rect pac, SDL_Rect &ghost, Direction &d);
+	void move_ghost();
 	//Next spot detection
 	void next_spot(SDL_Rect c, Direction last_d);
 	bool collision(SDL_Rect pacman);
+	
+	
 	
     // instantiate objects
 	SDL_Rect pacman;
 	// ghosts 
 	SDL_Rect ghost1;
 	SDL_Rect ghost2;
-<<<<<<< HEAD
-=======
 	
 	
->>>>>>> 7711cc0632528b7f7a1015065d750e30d5271c4f
-	
-	Direction pac_d;
-	Direction ghost_d;
+	Direction ghostd;
 	Direction last_d;
 	// big food pill
+	
+	int width;
+	int height;
 	
 private:
 	int score;

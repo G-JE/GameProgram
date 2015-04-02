@@ -11,6 +11,8 @@
 #ifndef _VIEW_H
 #define _VIEW_H
 
+
+
 // Show (output) the state of the model
 class View {
 public:
@@ -25,7 +27,7 @@ private:
 	SDL_Rect Rect[31];
 	SDL_Surface* Pills[143];
 	SDL_Surface* SPills[5];
-	SDL_Rect checkblock, offset, middle, middle2, pacinit;
+	SDL_Rect checkblock, offset, middle, middle2, pacinit, ghost_init;
     SDL_Window* window;
     SDL_Surface* screen;
     bool fail;
@@ -34,6 +36,8 @@ private:
 	SDL_Surface* Pacmanleft;
 	SDL_Surface* Pacmanup;
 	SDL_Surface* Pacmandown;
+	SDL_Surface* Ghost;
+	
 //    Mix_Music * music;
 //    Mix_Chunk * food;
     TTF_Font * font;

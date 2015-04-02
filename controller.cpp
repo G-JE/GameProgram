@@ -1,10 +1,11 @@
 #include "controller.h"
+#include "model.h"
 #include <map>
 
 using namespace std;
 
 Controller::Controller() {
-    model = new Model(20, 15);
+    model = new Model(640, 480);
     view = new View("Game", 640, 480);
 }
 
@@ -24,6 +25,12 @@ void Controller::loop() {
     SDL_Event e;
 	e.type=NULL;
 	
+	
+	
+	
+	
+	
+	
     unsigned int lastTime = 0, currentTime;
     std::map<SDL_Keycode, Direction> direction;
     direction[SDLK_UP] = UP;
@@ -35,6 +42,7 @@ void Controller::loop() {
         currentTime = SDL_GetTicks();
 		   if (currentTime > lastTime + 10) {
             model->move_pac(pacdest);
+			model->move_ghost();
             lastTime = currentTime;
         }
         // Do stuff here to animate as necessary
