@@ -29,7 +29,7 @@ public:
 	void move_ghost(SDL_Rect pac, SDL_Rect &ghost, Direction &d);
 	//Next spot detection
 	void next_spot(SDL_Rect c, Direction last_d);
-	bool collision(SDL_Rect pacman);
+	bool pillcollision(SDL_Rect pacman, SDL_Surface* pill);
 	
     // instantiate objects
 	SDL_Rect pacman;

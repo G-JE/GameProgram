@@ -16,7 +16,9 @@ Model::Model() {
 
 //TODO: make everything go in a direction
 void Model::go(Direction d){
+
 	direction = d;
+	
 };
 
 //TODO: make pacman move.
@@ -28,11 +30,35 @@ void Model::move_pac(SDL_Rect &pacman){
     case DOWN: pacman.y += 2; break;
     case LEFT: pacman.x += -2; break;
     case RIGHT: pacman.x += 2; break;
+	case STILL: break;
+	
+	
     }
 
 	
 };
 
+
+	
+bool pillcollision(SDL_Rect A, SDL_Surface* pill){
+	//The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    //Calculate the sides of rect A
+    leftA = A.x;
+    rightA = A.x + A.w;
+    topA = A.y;
+    bottomA = A.y + A.h;
+        
+    //Calculate the sides of rect B
+    leftB = B.x;
+    rightB = B.x + B.w;
+    topB = B.y;
+    bottomB = B.y + B.h;
+}
 
 //TODO: detect next tile
 void Model::next_spot(SDL_Rect c, Direction last_d){
