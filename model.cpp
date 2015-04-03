@@ -15,9 +15,8 @@ Model::Model(int w, int h) {
 	SDL_Rect pacman;
 	pacman.x=288;
 	pacman.y=416;
-	SDL_Rect ghost1;
-	ghost1.x = 2000;
-	ghost1.y = 2000;
+	ghost1.x = 320;
+	ghost1.y = 240;
 	ghostd = UP;
 	
 }
