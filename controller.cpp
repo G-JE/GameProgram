@@ -18,9 +18,6 @@ https://wiki.libsdl.org/SDL_PollEvent
 https://wiki.libsdl.org/SDL_Event
 */
 void Controller::loop() {
-	SDL_Rect pacdest;
-	pacdest.x=288;
-	pacdest.y=416;
     SDL_Event e;
 	e.type=NULL;
 	
@@ -33,12 +30,13 @@ void Controller::loop() {
 	
     while(!model->gameOver()) {
         currentTime = SDL_GetTicks();
-		   if (currentTime > lastTime + 30) {
-			   for (int i = 0; i<8; i++){
-			   model->move_pac(pacdest);
+		if (currentTime > lastTime + 30) {
+		   for (int i = 0; i<8; i++){
+			   model->move_pac();
 			   SDL_Delay(8);
-			   view->show(model, pacdest, e);}
-            lastTime = currentTime;
+			   view->show(model);
+		   }
+			lastTime = currentTime;
         }
         // Do stuff here to animate as necessary
         //view->show(model, pacdest, e);
@@ -64,6 +62,6 @@ void Controller::loop() {
     }
 	
     // TODO: show something nice?
-    view->show(model, pacdest, e);
+    view->show(model);
     SDL_Delay(3000);
 }

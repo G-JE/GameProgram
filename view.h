@@ -17,26 +17,22 @@ public:
     View(std::string title, int width, int height);
     ~View();
     // Print out the visible stuff in the grid
-    void show(Model * model, SDL_Rect &pacdest, SDL_Event e);
+    void show(Model * model);
+//	SDL_Rect Rect[31];
 private:
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	SDL_Surface* background;
-	SDL_Rect SPloc[5];
-	SDL_Rect Rect[31];
-	SDL_Surface* Pills[124];
-	SDL_Surface* SPills[5];
-	SDL_Rect checkblock, offset, middle, middle2, pacinit;
+	SDL_Surface* pill;
+	SDL_Surface* spill;
     SDL_Window* window;
     SDL_Surface* screen;
     bool fail;
     SDL_Surface* load(char * path);
-    SDL_Surface* Pacmanright;
-	SDL_Surface* Pacmanleft;
-	SDL_Surface* Pacmanup;
-	SDL_Surface* Pacmandown;
+	std::map<Direction, SDL_Surface*> pacman;
+	SDL_Surface* pacmanclose;
 //    Mix_Music * music;
 //    Mix_Chunk * food;
     TTF_Font * font;
-	int n;
+	int frame;
 };
 #endif
