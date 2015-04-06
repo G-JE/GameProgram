@@ -42,9 +42,21 @@ View::View(string title, int width, int height) {
 	spill = load("assets/Superpill.png");
 	SDL_SetColorKey(spill, SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 
+<<<<<<< HEAD
+	//SP initialize
+	for (int k = 0; k < 5; k++)
+		SPills[k] = NULL;
 		
 	
 	
+	
+    // Load assets
+    Pacmanright = load("assets/pacmanR.png");
+	Pacmanleft = load("assets/Lpacman.png");
+	Pacmanup = load("assets/Upacman.png");
+	Pacmandown = load("assets/Dpacman.png");
+	Ghost = load("assets/pacman-ghost.png");
+=======
 	
     // Load assets
     pacman[RIGHT] = load("assets/pacmanR.png");
@@ -52,9 +64,6 @@ View::View(string title, int width, int height) {
 	pacman[LEFT] = load("assets/Lpacman.png");
 	pacman[UP] = load("assets/Upacman.png");
 	pacman[DOWN] = load("assets/Dpacman.png");
-	
-	//Load ghost
-	Ghost = load("assets/pacman-ghost.png");
 	
 	
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
@@ -65,6 +74,7 @@ View::View(string title, int width, int height) {
 	background = load("assets/background.jpg");
 	
 	
+>>>>>>> 41de1af49ba5560a544b6b457b598378472bcd6a
 //    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
 //    if (music != NULL) {
 //       Mix_PlayMusic( music, -1 );
@@ -79,17 +89,34 @@ View::View(string title, int width, int height) {
 	SPloc[2].x = 416;	SPloc[2].y = 128;
 	SPloc[3].x = 576;	SPloc[3].y = 32;
 	SPloc[4].x = 576;	SPloc[4].y = 320;
+<<<<<<< HEAD
+	
+	middle.x = 224;		middle.y = 192;		middle.h = 96;		middle.w = 192;
+	middle2.x = 320;	middle2.y = 160;	middle2.w = 32;		middle2.h = 32;
+	checkblock.h = 32;	checkblock.w = 32;	checkblock.x = 0;	checkblock.y = 0;
+	pacinit.x = 288;	pacinit.y = 416; 	pacinit.w = 32; 	pacinit.h = 32;	
+	offset.x = 0;		offset.y = 0;
+
+=======
+>>>>>>> 41de1af49ba5560a544b6b457b598378472bcd6a
 }
 
 
 View::~View() {
     SDL_DestroyWindow(window);
+<<<<<<< HEAD
+	SDL_FreeSurface(Pacmanright);
+	SDL_FreeSurface(Pacmanleft);
+	SDL_FreeSurface(Pacmanup);
+	SDL_FreeSurface(Pacmandown);
+	SDL_FreeSurface(Ghost);
+=======
 	SDL_FreeSurface(pacman[RIGHT]);
 	SDL_FreeSurface(pacman[LEFT]);
 	SDL_FreeSurface(pacman[UP]);
 	SDL_FreeSurface(pacman[DOWN]);
 	SDL_FreeSurface(pill);
-	SDL_FreeSurface(Ghost);
+>>>>>>> 41de1af49ba5560a544b6b457b598378472bcd6a
 	
 	for (int p = 0; p < 124; p++)
 
@@ -134,7 +161,7 @@ void View::show(Model * model) {
 	}
 	
 	//SDL_BlitSurface(Ghost, NULL, screen, &ghost_init);
-	//SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
+	SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
 	
 	
 	//draw the ghost
@@ -145,9 +172,38 @@ void View::show(Model * model) {
 	
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 	
+<<<<<<< HEAD
 	
 	
+	switch(e.key.keysym.sym) {
+    case SDLK_UP:
+	SDL_SetColorKey(Pacmanup, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_BlitSurface(Pacmanup, NULL, screen, &pacdest);
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+    SDL_UpdateWindowSurface(window);
+	break;
+    case SDLK_DOWN: 
+	SDL_SetColorKey(Pacmandown, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_BlitSurface(Pacmandown, NULL, screen, &pacdest);
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+    SDL_UpdateWindowSurface(window); 
+	break;
+    case SDLK_LEFT:
+	SDL_SetColorKey(Pacmanleft, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_BlitSurface(Pacmanleft, NULL, screen, &pacdest);
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+    SDL_UpdateWindowSurface(window);
+	break;
+    case SDLK_RIGHT:
+	SDL_SetColorKey(Pacmanright, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+    SDL_UpdateWindowSurface(window); 
+	break;
+	}
+=======
 	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
 	SDL_UpdateWindowSurface(window);
+>>>>>>> 41de1af49ba5560a544b6b457b598378472bcd6a
   }
 
