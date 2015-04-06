@@ -1,5 +1,6 @@
 #include "view.h"
 
+
 using namespace std;
 // Initialize Barriers
 
@@ -42,6 +43,9 @@ View::View(string title, int width, int height) {
 	SDL_SetColorKey(spill, SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 
 	frame = 0;
+		
+	
+	
 	
     // Load assets
     pacman[RIGHT] = load("assets/pacmanR.png");
@@ -52,6 +56,9 @@ View::View(string title, int width, int height) {
 	pacmanclose = load("assets/Pacmanclose.png");
 	
 	SDL_SetColorKey(pacmanclose, SDL_TRUE, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
+	//Load ghost
+	Ghost = load("assets/pacman-ghost.png");
+	
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[STILL], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[LEFT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
@@ -76,6 +83,7 @@ View::~View() {
 	SDL_FreeSurface(pacman[UP]);
 	SDL_FreeSurface(pacman[DOWN]);
 	SDL_FreeSurface(pill);
+	SDL_FreeSurface(Ghost);
 	
 	for (int p = 0; p < 124; p++)
 
@@ -120,6 +128,17 @@ void View::show(Model * model) {
 		SDL_BlitSurface(spill, NULL, screen, &model->SPloc[m]);
 		}
 	}
+	
+	//SDL_BlitSurface(Ghost, NULL, screen, &ghost_init);
+	//SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
+	
+	
+	//draw the ghost
+	SDL_Rect dest;
+	dest.x = model->ghost1.x;
+	dest.y = model->ghost1.y;
+	SDL_BlitSurface(Ghost, NULL, screen, &dest);
+	
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 	if (frame % 48 == 0)
 		SDL_BlitSurface(pacmanclose, NULL, screen, &(model->pacman));

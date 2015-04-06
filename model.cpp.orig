@@ -7,8 +7,12 @@
 using namespace std;
 
 // Constructor initializes the object
-Model::Model(int w, int h) {
+<<<<<<< HEAD
+Model::Model() {
 	score = 0;
+=======
+Model::Model(int w, int h) {
+>>>>>>> 45af6563699ba3db8858c10fb43b7b673043123c
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
 	ghost1.x = 320; ghost1.y = 240; ghost1.h = 32; ghost1.w = 32;
 //	static SDL_Rect walls = {{0,0,32,640}, };
@@ -94,7 +98,11 @@ Model::Model(int w, int h) {
 	}
 
 	direction = STILL;
+<<<<<<< HEAD
+=======
+	moving = false;
 	ghostd = UP;
+>>>>>>> 45af6563699ba3db8858c10fb43b7b673043123c
 };
 
 
