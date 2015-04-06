@@ -22,7 +22,6 @@ public:
 private:
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	SDL_Surface* background;
-	SDL_Rect SPloc[5];
 	SDL_Surface* pill;
 	SDL_Surface* spill;
     SDL_Window* window;
@@ -30,8 +29,10 @@ private:
     bool fail;
     SDL_Surface* load(char * path);
 	std::map<Direction, SDL_Surface*> pacman;
+	SDL_Surface* pacmanclose;
 //    Mix_Music * music;
 //    Mix_Chunk * food;
     TTF_Font * font;
+	int frame;
 };
 #endif

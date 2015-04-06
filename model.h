@@ -19,39 +19,36 @@ public:
     Model();
     // Destructor deletes all dynamically allocated stuff
     ~Model();
-	void go(Direction d);
-	void move();
     // Is the game over?
     bool gameOver();
 	//Make the object move
 	// Move (if the next spot is a wall d = STILL)
 	Direction direction;
-	void move_pac();
 	// Move the ghosts (if the next spot is a wall, switch direction)
 	void move_ghost(SDL_Rect pac, SDL_Rect &ghost, Direction &d);
 	//Next spot detection
 	void next_spot(SDL_Rect c, Direction last_d);
-	bool paccollision();
-	bool Collision(SDL_Rect a, SDL_Rect b);
-	SDL_Rect checkblock, offset, middle, middle2, pacinit;
-	
     // instantiate objects
 	SDL_Rect pacman;
-	SDL_Rect Rect[31];
+	SDL_Rect Rect[32];
 	// Locations of the pills
 	SDL_Rect pills[124];
 	// Is the pill being shown?
 	bool pillShown[124];
 	// ghosts 
+	void go(Direction d);
+	void move_pac();
 	SDL_Rect ghost1;
 	SDL_Rect ghost2;
-	
-	bool moving;
-	
+	bool SPshown[5];
+	SDL_Rect SPloc[5];
 	Direction last_d;
 	// big food pill
 	
 private:
+	SDL_Rect checkblock, offset, middle, middle2;
+	bool paccollision();
+	bool Collision(SDL_Rect a, SDL_Rect b);
 	int score;
 };
 

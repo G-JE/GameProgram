@@ -8,6 +8,7 @@ using namespace std;
 
 // Constructor initializes the object
 Model::Model() {
+	score = 0;
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
 //	static SDL_Rect walls = {{0,0,32,640}, };
 // Rect = walls;
@@ -42,14 +43,25 @@ Model::Model() {
 	Rect[28].x = 544; 	Rect[28].y = 320; 	Rect[28].w = 32; 	Rect[28].h = 96;
 	Rect[29].x = 544; 	Rect[29].y = 224; 	Rect[29].w = 32; 	Rect[29].h = 32;
 	Rect[30].x = 544; 	Rect[30].y = 64; 	Rect[30].w = 32; 	Rect[30].h = 128;
+	Rect[31].x = 320;	Rect[31].y = 160; 	Rect[31].w = 32;	Rect[31].h = 32;
 
 	middle.x = 224;		middle.y = 192;		middle.h = 96;		middle.w = 192;
 	middle2.x = 320;	middle2.y = 160;	middle2.w = 32;		middle2.h = 32;
 	checkblock.h = 32;	checkblock.w = 32;	checkblock.x = 0;	checkblock.y = 0;
-	pacinit.x = 288;	pacinit.y = 416; 	pacinit.w = 32; 	pacinit.h = 32;
 
 	for (int i = 0; i <124 ; i++){
 		pillShown[i] = true;
+	}
+	
+	//SP locations
+	SPloc[0].x = 32;	SPloc[0].y = 416;
+	SPloc[1].x = 96;	SPloc[1].y = 128;
+	SPloc[2].x = 416;	SPloc[2].y = 128;
+	SPloc[3].x = 576;	SPloc[3].y = 32;
+	SPloc[4].x = 576;	SPloc[4].y = 320;
+	
+	for(int i = 0; i < 5; i++){
+		SPshown[i] = true;
 	}
 	
 	int p = 0;
@@ -63,11 +75,11 @@ Model::Model() {
 		for (int y = 0; y < 14; y++){
 			for (int b = 0; b < 31; b++){
 			if (Collision(checkblock, Rect[b]) || Collision(checkblock, middle)
-				|| Collision(checkblock, middle2) || Collision(pacinit, checkblock)){
+				|| Collision(checkblock, middle2)){
 				break;
 				}
 			if (b == 30 && !Collision(checkblock, Rect[b]) && !Collision(checkblock, middle)
-				&& !Collision(checkblock, middle2) && !Collision(pacinit, checkblock)){
+				&& !Collision(checkblock, middle2)){
 				pills[p].x = offset.x;	pills[p].y = offset.y;
 				// prints pill
 				p++;
@@ -81,7 +93,6 @@ Model::Model() {
 	}
 
 	direction = STILL;
-	moving = false;
 };
 
 bool Model::Collision(SDL_Rect a, SDL_Rect b){
@@ -114,7 +125,7 @@ bool Model::paccollision(){
 	switch(direction){
 		case UP:
 		topa += -2;
-		for (int i = 0; i < 31; i++){
+		for (int i = 0; i < 32; i++){
 	leftb = Rect[i].x;
 	rightb = Rect[i].x + Rect[i].w;
 	topb = Rect[i].y;
@@ -128,7 +139,7 @@ bool Model::paccollision(){
 	break;
 		case DOWN:
 		bottoma += 2;
-		for (int i = 0; i < 31; i++){
+		for (int i = 0; i < 32; i++){
 	leftb = Rect[i].x;
 	rightb = Rect[i].x + Rect[i].w;
 	topb = Rect[i].y;
@@ -143,7 +154,7 @@ bool Model::paccollision(){
 	break;
 		case RIGHT:
 		righta += 2;
-		for (int i = 0; i < 31; i++){
+		for (int i = 0; i < 32; i++){
 	leftb = Rect[i].x;
 	rightb = Rect[i].x + Rect[i].w;
 	topb = Rect[i].y;
@@ -157,7 +168,7 @@ bool Model::paccollision(){
 	break;
 		case LEFT:
 		lefta += -2;
-		for (int i = 0; i < 31; i++){
+		for (int i = 0; i < 32; i++){
 	leftb = Rect[i].x;
 	rightb = Rect[i].x + Rect[i].w;
 	topb = Rect[i].y;
@@ -173,10 +184,6 @@ bool Model::paccollision(){
 
 }
 
-//TODO: make everything go in a direction
-void Model::go(Direction d){
-	direction = d;
-};
 
 //TODO: make pacman move.
 //*if next Rect is a barrier, direction is STILL
@@ -193,8 +200,20 @@ void Model::move_pac() {
 	for(int i = 0; i < 124; i++){
 		if (pacman.x == pills[i].x && pacman.y == pills[i].y){
 			pillShown[i] = false;
+			score += 100;
 		}
 	}
+	for(int i = 0; i < 5; i++){
+		if (pacman.x == SPloc[i].x && pacman.y == SPloc[i].y){
+			SPshown[i] = false;
+		}
+		//else
+		//Change state to get ghosts
+	}
+};
+
+void Model::go(Direction d){
+	direction = d;
 };
 
 
@@ -296,6 +315,11 @@ Model::~Model() {
 };
 
 bool Model::gameOver() {
-    return false;
+	int n = 0;
+	for (int i = 0; i < 124; i++){
+		if (pillShown[i] == false)
+			n++;
+	}
+	return n > 123;
 };
 

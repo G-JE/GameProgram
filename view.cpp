@@ -41,6 +41,7 @@ View::View(string title, int width, int height) {
 	spill = load("assets/Superpill.png");
 	SDL_SetColorKey(spill, SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 
+	frame = 0;
 	
     // Load assets
     pacman[RIGHT] = load("assets/pacmanR.png");
@@ -48,8 +49,9 @@ View::View(string title, int width, int height) {
 	pacman[LEFT] = load("assets/Lpacman.png");
 	pacman[UP] = load("assets/Upacman.png");
 	pacman[DOWN] = load("assets/Dpacman.png");
+	pacmanclose = load("assets/Pacmanclose.png");
 	
-	
+	SDL_SetColorKey(pacmanclose, SDL_TRUE, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[STILL], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[LEFT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
@@ -64,14 +66,6 @@ View::View(string title, int width, int height) {
 //    }
 //    food = Mix_LoadWAV("assets/yummy.wav");
     font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
-	
-
-//SP locations
-	SPloc[0].x = 32;	SPloc[0].y = 416;
-	SPloc[1].x = 96;	SPloc[1].y = 128;
-	SPloc[2].x = 416;	SPloc[2].y = 128;
-	SPloc[3].x = 576;	SPloc[3].y = 32;
-	SPloc[4].x = 576;	SPloc[4].y = 320;
 }
 
 
@@ -122,11 +116,18 @@ void View::show(Model * model) {
 	}
 	
 	for (int m = 0; m < 5; m++){
-		SDL_BlitSurface(spill, NULL, screen, &SPloc[m]);
+		if (model->SPshown[m] == true){
+		SDL_BlitSurface(spill, NULL, screen, &model->SPloc[m]);
+		}
 	}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
-	
+	if (frame % 48 == 0)
+		SDL_BlitSurface(pacmanclose, NULL, screen, &(model->pacman));
+	else
 	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
+	
+	frame ++;
+	
 	SDL_UpdateWindowSurface(window);
   }
 
