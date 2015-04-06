@@ -114,10 +114,7 @@ void View::show(Model * model) {
 		SDL_BlitSurface(pill, NULL, screen, &(model->pills[i]));
 		}
 	}
-	for (p=0;p<124;p++) {
-		if(pacdest.x==Pills[p].x &&pacdest.y==Pills[].y)
-			SDL_FreeSurface(Pills[p]);
-	}		
+			
 	for (int m = 0; m < 5; m++){
 		if (model->SPshown[m] == true){
 		SDL_BlitSurface(spill, NULL, screen, &model->SPloc[m]);
