@@ -33,6 +33,10 @@ private:
 	std::map<Direction, SDL_Surface*> pacman;
 	SDL_Surface* pacmanclose;
 	SDL_Surface* Ghost;
+	Mix_Music * startup;
+	Mix_Chunk * chomp;
+
+
 	
 //    Mix_Music * music;
 //    Mix_Chunk * food;
