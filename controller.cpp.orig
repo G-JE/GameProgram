@@ -37,14 +37,20 @@ void Controller::loop() {
 	
     while(!model->gameOver()) {
         currentTime = SDL_GetTicks();
+<<<<<<< HEAD
+		   if (currentTime > lastTime + 10) {
+            model->move_pac(pacdest);
+			model->move_ghost();
+            lastTime = currentTime;
+=======
 		if (currentTime > lastTime + 30) {
 		   for (int i = 0; i<8; i++){
 			   model->move_pac();
-			model->move_ghost();
 			   SDL_Delay(8);
 			   view->show(model);
 		   }
 			lastTime = currentTime;
+>>>>>>> 41de1af49ba5560a544b6b457b598378472bcd6a
         }
         // Do stuff here to animate as necessary
         //view->show(model, pacdest, e);
