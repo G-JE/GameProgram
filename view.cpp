@@ -136,13 +136,14 @@ void View::show(Model * model) {
 	//SDL_BlitSurface(Ghost, NULL, screen, &ghost_init);
 	//SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
 	
-	
-	//draw the ghost
+	//TODO:
+	//draw the ghosts
+	for (int i = 0; i < 4; i++){
 	SDL_Rect dest;
-	dest.x = model->ghost1.x;
-	dest.y = model->ghost1.y;
+	dest.x = model->ghost[i].x;
+	dest.y = model->ghost[i].y;
 	SDL_BlitSurface(Ghost, NULL, screen, &dest);
-	
+	}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 	
 	

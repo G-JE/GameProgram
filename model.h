@@ -29,18 +29,15 @@ public:
 	void move_pac();
 	// Move the ghosts (if the next spot is a wall, switch direction)
 	void move_ghost();
-	//Next spot detection
 	
-	void new_path();
+	
+	void new_path(int k);
 	bool paccollision();
-	bool ghostcollision();
+	bool ghostcollision(SDL_Rect ghost, Direction d);
 	bool overlap(SDL_Rect c, SDL_Rect d);
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	
 	SDL_Rect checkblock, offset, middle, middle2, pacinit;
-	
-	
-	
     // instantiate objects
 	SDL_Rect pacman;
 	SDL_Rect Rect[31];
@@ -49,11 +46,10 @@ public:
 	// Is the pill being shown?
 	bool pillShown[124];
 	// ghosts 
-	SDL_Rect ghost1;
-	SDL_Rect ghost2;
-	
+	SDL_Rect ghost[4];
+		
 	bool moving;
-	Direction ghostd;
+	Direction ghostd[4];
 	Direction last_d;
 	// big food pill
 	
