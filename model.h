@@ -30,11 +30,6 @@ public:
 	// Move the ghosts (if the next spot is a wall, switch direction)
 	void move_ghost();
 	//Next spot detection
-	
-	void new_path();
-	bool ghostcollision();
-	bool overlap(SDL_Rect c, SDL_Rect d);
-	
     // instantiate objects
 	SDL_Rect pacman;
 	SDL_Rect Rect[32];
@@ -50,10 +45,10 @@ public:
 	SDL_Rect SPloc[5];
 	Direction ghostd;
 	Direction last_d;
+	bool overlap(SDL_Rect c, SDL_Rect d);
+	void new_path();
+	bool ghostcollision();
 	// big food pill
-	
-	int width;
-	int height;
 	
 private:
 	SDL_Rect checkblock, offset, middle, middle2;

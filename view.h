@@ -32,7 +32,6 @@ private:
     bool fail;
     SDL_Surface* load(char * path);
 	std::map<Direction, SDL_Surface*> pacman;
-	SDL_Surface* pacmanclose;
 	SDL_Surface* Ghost;
 //    Mix_Music * music;
 //    Mix_Chunk * food;

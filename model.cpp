@@ -188,6 +188,8 @@ bool Model::paccollision(){
 }
 
 
+	
+
 //TODO: make pacman move.
 //*if next Rect is a barrier, direction is STILL
 void Model::move_pac() {
@@ -199,6 +201,8 @@ void Model::move_pac() {
     case DOWN: if (!paccollision()){pacman.y += 2;} break;
     case LEFT: if (!paccollision()){pacman.x += -2;} break;
     case RIGHT: if (!paccollision()){pacman.x += 2;}break;
+	
+	
     }
 	for(int i = 0; i < 124; i++){
 		if (pacman.x == pills[i].x && pacman.y == pills[i].y){

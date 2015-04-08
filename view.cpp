@@ -55,12 +55,11 @@ View::View(string title, int width, int height) {
 	pacman[DOWN] = load("assets/Dpacman.png");
 	pacmanclose = load("assets/Pacmanclose.png");
 	
+	SDL_SetColorKey(pacmanclose, SDL_TRUE, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	//Load ghost
 	Ghost = load("assets/pacman-ghost.png");
 	pacmanclose = load("assets/Pacmanclose.png");
 	
-	SDL_SetColorKey(pacmanclose, SDL_TRUE, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
-
 	
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[STILL], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
@@ -126,7 +125,7 @@ void View::show(Model * model) {
 		SDL_BlitSurface(pill, NULL, screen, &(model->pills[i]));
 		}
 	}
-	
+			
 	for (int m = 0; m < 5; m++){
 		if (model->SPshown[m] == true){
 		SDL_BlitSurface(spill, NULL, screen, &model->SPloc[m]);

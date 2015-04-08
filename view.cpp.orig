@@ -42,13 +42,11 @@ View::View(string title, int width, int height) {
 	spill = load("assets/Superpill.png");
 	SDL_SetColorKey(spill, SDL_TRUE, SDL_MapRGB(screen->format,0x00,0x00,0x00));
 
-<<<<<<< HEAD
 	frame = 0;
-=======
+		
 		
 	
 	
->>>>>>> 45af6563699ba3db8858c10fb43b7b673043123c
 	
     // Load assets
     pacman[RIGHT] = load("assets/pacmanR.png");
@@ -64,14 +62,15 @@ View::View(string title, int width, int height) {
 	//Load ghost
 	Ghost = load("assets/pacman-ghost.png");
 	
-	
->>>>>>> 45af6563699ba3db8858c10fb43b7b673043123c
+	SDL_SetColorKey(pacmanclose, SDL_TRUE, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[STILL], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[LEFT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[UP], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[DOWN], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	background = load("assets/background.jpg");
+	
+	
 	
 	
 //    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
@@ -129,14 +128,22 @@ void View::show(Model * model) {
 		SDL_BlitSurface(pill, NULL, screen, &(model->pills[i]));
 		}
 	}
+<<<<<<< HEAD
+	for (p=0;p<124;p++) {
+		if(pacdest.x==Pills[p].x &&pacdest.y==Pills[].y)
+			SDL_FreeSurface(Pills[p]);
+	}		
+	if (n == 0){
+		SDL_BlitSurface(Pacmanright, NULL, screen, &pacdest);
+	}
+=======
 	
+>>>>>>> 7e7b06701c71c579bf6a2a68ae25b99270231bd2
 	for (int m = 0; m < 5; m++){
 		if (model->SPshown[m] == true){
 		SDL_BlitSurface(spill, NULL, screen, &model->SPloc[m]);
 		}
-	}
-	
-	//SDL_BlitSurface(Ghost, NULL, screen, &ghost_init);
+		}
 	//SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
 	
 	
@@ -147,15 +154,16 @@ void View::show(Model * model) {
 	SDL_BlitSurface(Ghost, NULL, screen, &dest);
 	
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
-<<<<<<< HEAD
+	if (frame % 48 == 0)
+		SDL_BlitSurface(pacmanclose, NULL, screen, &(model->pacman));
+	else
+	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
+	frame ++;
 	if (frame % 48 == 0)
 		SDL_BlitSurface(pacmanclose, NULL, screen, &(model->pacman));
 	else
 =======
 	
-	
-	
->>>>>>> 45af6563699ba3db8858c10fb43b7b673043123c
 	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
 	
 	frame ++;

@@ -196,6 +196,8 @@ bool Model::paccollision(){
 }
 
 
+
+
 //TODO: make pacman move.
 //*if next Rect is a barrier, direction is STILL
 void Model::move_pac() {
@@ -207,6 +209,8 @@ void Model::move_pac() {
     case DOWN: if (!paccollision()){pacman.y += 2;} break;
     case LEFT: if (!paccollision()){pacman.x += -2;} break;
     case RIGHT: if (!paccollision()){pacman.x += 2;}break;
+	
+	
     }
 	for(int i = 0; i < 124; i++){
 		if (pacman.x == pills[i].x && pacman.y == pills[i].y){
@@ -343,6 +347,19 @@ void Model::new_path(){
 					path4 = abs (c4.x - pacman.x) + abs (c4.y - pacman.y);
 				}
 			}
+	switch (ghostd) {
+		case UP:
+			for (int i = 0; i < 31; i++){
+				if (!overlap(c3, Rect[i])){
+					path3 = abs (c3.x - pacman.x) + abs (c3.y - pacman.y);
+				}
+				
+			}
+			for (int i = 0; i < 31; i++){
+				if (!overlap(c4, Rect[i])){
+					path4 = abs (c4.x - pacman.x) + abs (c4.y - pacman.y);
+				}
+			}
 			break;
 		case DOWN:
 			for (int i = 0; i < 31; i++){
@@ -412,6 +429,18 @@ void Model::move_ghost(){
 	if (ghostcollision() == true){
 		new_path();
 	}
+	
+};
+
+
+//moves the ghost
+void Model::move_ghost(){
+	
+	
+	
+	if (ghostcollision() == true){
+		new_path();
+			}
 	
 	switch(ghostd) {
 		case UP:
