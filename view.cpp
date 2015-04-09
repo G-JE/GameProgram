@@ -135,9 +135,16 @@ void View::show(Model * model) {
 	//SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
 	
 	for(int i = 0; i < 124; i++){
-		if (model->direction!=STILL && model->paccollision()== false){
-		 Mix_PlayChannel( -1, chomp, 0);
-		}
+		//if (model->direction!=STILL && model->paccollision()== false && model->pacman.x == model->pills[i].x && model->pacman.y+5 == model->pills[i].y && model->pillShown[i]==true ){
+		 //Mix_PlayChannel( -1, chomp, 0);}
+		 if (model->direction == RIGHT && model->pacman.x + 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		if (model->direction == LEFT && model->pacman.x - 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		if (model->direction == UP && model->pacman.x == model->pills[i].x && model->pacman.y -4 == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		if (model->direction == DOWN && model->pacman.x == model->pills[i].x && model->pacman.y +4 == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
 	}
 	//draw the ghost
 	SDL_Rect dest;
