@@ -39,10 +39,10 @@ void Controller::loop() {
         currentTime = SDL_GetTicks();
 		if (currentTime > lastTime + 30) {
 		   for (int i = 0; i<8; i++){
-			   model->move_pac();
-			model->move_ghost();
-			   SDL_Delay(8);
-			   view->show(model);
+				model->move_pac();
+				model->move_ghost();
+				SDL_Delay(8);
+				view->show(model);
 		   }
 			lastTime = currentTime;
         }

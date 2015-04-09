@@ -26,8 +26,10 @@ public:
 	Direction direction;
 	// Move the ghosts (if the next spot is a wall, switch direction)
 	void move_ghost();
-	//Next spot detection
 	void next_spot(SDL_Rect c, Direction last_d);
+	
+	void new_path(int k);
+	bool ghostcollision(SDL_Rect ghost, Direction d);
     // instantiate objects
 	SDL_Rect pacman;
 	SDL_Rect Rect[32];
@@ -36,13 +38,13 @@ public:
 	// Is the pill being shown?
 	bool pillShown[124];
 	// ghosts 
+	SDL_Rect ghost[4];
 	void go(Direction d);
 	void move_pac();
-	SDL_Rect ghost1;
-	SDL_Rect ghost2;
 	bool SPshown[5];
+		
 	SDL_Rect SPloc[5];
-	Direction ghostd;
+	Direction ghostd[4];
 	Direction last_d;
 	bool overlap(SDL_Rect c, SDL_Rect d);
 	void new_path();

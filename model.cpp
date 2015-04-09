@@ -8,9 +8,17 @@ using namespace std;
 
 // Constructor initializes the object
 Model::Model(int w, int h) {
+
 	score = 0;
+
+	// x-20 y-15
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
-	ghost1.x = 320; ghost1.y = 240; ghost1.h = 32; ghost1.w = 32;
+	
+//initialize the ghosts
+	ghost[0].x = 320; ghost[0].y = 240; ghost[0].h = 32; ghost[0].w = 32;	
+	ghost[1].x = 576; ghost[1].y = 64; ghost[1].h = 32; ghost[1].w = 32;
+	ghost[2].x = 576; ghost[2].y = 416; ghost[2].h = 32; ghost[2].w = 32;
+	ghost[3].x = 64; ghost[3].y = 416; ghost[3].h = 32; ghost[3].w = 32;
 //	static SDL_Rect walls = {{0,0,32,640}, };
 // Rect = walls;
 	Rect[0].x = 0; 		Rect[0].y = 0; 		Rect[0].w = 32; 	Rect[0].h = 640;
@@ -94,7 +102,11 @@ Model::Model(int w, int h) {
 	}
 
 	direction = STILL;
-	ghostd = UP;
+	ghostd[0] = UP;
+	ghostd[1] = DOWN;
+	ghostd[2] = LEFT;
+	ghostd[3] = RIGHT;
+	//initialize new directions for my ghosts
 };
 
 
@@ -227,176 +239,154 @@ void Model::go(Direction d){
 
 //TODO: make ghost collision function
 //just like pacman collision
-bool Model::ghostcollision(){
-	int lefta, leftb, righta, rightb, topa, topb, bottoma, bottomb;
+bool Model::ghostcollision(SDL_Rect ghost, Direction d){
+
+		int lefta, leftb, righta, rightb, topa, topb, bottoma, bottomb;
 	
-	lefta = ghost1.x;
-	righta = ghost1.x + ghost1.w;
-	topa = ghost1.y;
-	bottoma = ghost1.y + ghost1.h;
 	
-	switch(ghostd){
-		case UP:
-		topa += -2;
-		for (int i = 0; i < 31; i++){
-	leftb = Rect[i].x;
-	rightb = Rect[i].x + Rect[i].w;
-	topb = Rect[i].y;
-	bottomb = Rect[i].y + Rect[i].h;
-	if (bottoma > topb && topa < bottomb && righta > leftb && lefta < rightb){
-		cout << i << endl;
-		return true;
-	break;}
-}
-	return false;
-	break;
-		case DOWN:
-		bottoma += 2;
-		for (int i = 0; i < 31; i++){
-	leftb = Rect[i].x;
-	rightb = Rect[i].x + Rect[i].w;
-	topb = Rect[i].y;
-	bottomb = Rect[i].y + Rect[i].h;
-	if (bottoma > topb && topa < bottomb && righta > leftb && lefta < rightb){
-		cout << i << endl;
-		return true;
-	break;}
+	
+		lefta = ghost.x;
+		righta = ghost.x + ghost.w;
+		topa = ghost.y;
+		bottoma = ghost.y + ghost.h;
+	
+		switch(d){
+			case UP:
+			topa += -2;
+			for (int i = 0; i < 31; i++){
+				leftb = Rect[i].x;
+				rightb = Rect[i].x + Rect[i].w;
+				topb = Rect[i].y;
+				bottomb = Rect[i].y + Rect[i].h;
+					if (bottoma > topb && topa < bottomb && righta > leftb && lefta < rightb){
+						cout << i << endl;
+						return true;
+				break;}
+		}
+		return false;
+		break;
+			case DOWN:
+			bottoma += 2;
+			for (int i = 0; i < 31; i++){
+				leftb = Rect[i].x;
+				rightb = Rect[i].x + Rect[i].w;
+				topb = Rect[i].y;
+				bottomb = Rect[i].y + Rect[i].h;
+					if (bottoma > topb && topa < bottomb && righta > leftb && lefta < rightb){
+						cout << i << endl;
+						return true;
+				break;}
 		
-}
-	return false;
-	break;
-		case RIGHT:
-		righta += 2;
-		for (int i = 0; i < 31; i++){
-	leftb = Rect[i].x;
-	rightb = Rect[i].x + Rect[i].w;
-	topb = Rect[i].y;
-	bottomb = Rect[i].y + Rect[i].h;
-	if (bottoma > topb && topa < bottomb && righta > leftb && lefta < rightb){
-		cout << i << endl;
-		return true;
-	break;}
-}
-	return false;
-	break;
-		case LEFT:
-		lefta += -2;
-		for (int i = 0; i < 31; i++){
-	leftb = Rect[i].x;
-	rightb = Rect[i].x + Rect[i].w;
-	topb = Rect[i].y;
-	bottomb = Rect[i].y + Rect[i].h;
-	if (bottoma > topb && topa < bottomb && righta > leftb && lefta < rightb){
-		return true;
-		cout << i << endl;
-	break;}
-}
-	return false;
+		}
+		return false;
+		break;
+			case RIGHT:
+			righta += 2;
+			for (int i = 0; i < 31; i++){
+				leftb = Rect[i].x;
+				rightb = Rect[i].x + Rect[i].w;
+				topb = Rect[i].y;
+				bottomb = Rect[i].y + Rect[i].h;
+					if (bottoma > topb && topa < bottomb && righta > leftb && lefta < rightb){
+					cout << i << endl;
+					return true;
+				break;}
+	}
+		return false;
+		break;
+			case LEFT:
+			lefta += -2;
+			for (int i = 0; i < 31; i++){
+				leftb = Rect[i].x;
+				rightb = Rect[i].x + Rect[i].w;
+				topb = Rect[i].y;
+				bottomb = Rect[i].y + Rect[i].h;
+					if (bottoma > topb && topa < bottomb && righta > leftb && lefta < rightb){
+					return true;
+					cout << i << endl;
+				break;}
+	}
+		return false;
 		break;
 	}
 
+
 }
 
-bool Model::overlap(SDL_Rect c, SDL_Rect d){
-		int leftc, leftd, rightc, rightd, topc, topd, bottomc, bottomd;
-
-	leftc = c.x;
-	rightc = c.x + c.w;
-	topc = c.y;
-	bottomc = c.y + c.h;
-
-	leftd = d.x;
-	rightd = d.x + d.w;
-	topd = d.y;
-	bottomd = d.y + d.h;
-
-	if (bottomc <= topd && topc >= bottomd && rightc <= leftd && leftc >= rightd)
-		return false;
-	else 
-		return true;
-
+bool Model::overlap(SDL_Rect c, SDL_Rect d){	
+	return SDL_HasIntersection(&c,&d);
 };
 
 //TODO: choose a new path for the ghost
-void Model::new_path(){
+void Model::new_path(int k){
 
-	int path1, path2, path3, path4;
-	SDL_Rect c1,c2,c3,c4;
-	c1 = ghost1; c1.y -= 2; //up path1 will be up
-	c2 = ghost1; c2.y += 2; //down path2 will be down
-	c3 = ghost1; c3.x -= 2; //left path3 will be left
-	c4 = ghost1; c4.x += 2; //right path4 will be right
 	
-	switch (ghostd) {
-		case UP:
-			for (int i = 0; i < 31; i++){
+
+		int path1, path2, path3, path4;
+		//path1 = 5000;
+		//path2 = 5001;
+		//path3 = 5002;
+		//path4 = 5003;
+		SDL_Rect c1,c2,c3,c4;
+		c1 = ghost[k]; c1.y -= 1; //up path1 will be up
+		c2 = ghost[k]; c2.y += 1; //down path2 will be down
+		c3 = ghost[k]; c3.x -= 1; //left path3 will be left
+		c4 = ghost[k]; c4.x += 1; //right path4 will be right
+	
+	
+		for (int i = 0; i < 31; i++){
+				if (!overlap(c1, Rect[i])){
+					path1 = abs (c1.x - pacman.x) + abs (c1.y - pacman.y);
+				}
+				
+				if (!overlap(c2, Rect[i])){
+					path2 = abs (c2.x - pacman.x) + abs (c2.y - pacman.y);
+				}
 				if (!overlap(c3, Rect[i])){
 					path3 = abs (c3.x - pacman.x) + abs (c3.y - pacman.y);
 				}
-				
-			}
-			for (int i = 0; i < 31; i++){
 				if (!overlap(c4, Rect[i])){
 					path4 = abs (c4.x - pacman.x) + abs (c4.y - pacman.y);
 				}
+				
+			}
+	
+	switch (ghostd[k]) {
+		case UP:
+			if (path3 < path4){
+				ghostd[k] = LEFT;
+			}
+			else {
+				ghostd[k] = RIGHT;
 			}
 			break;
 		case DOWN:
-			for (int i = 0; i < 31; i++){
-				if (!overlap(c3, Rect[i])){
-					path3 = abs (c3.x - pacman.x) + abs (c3.y - pacman.y);
-				}
-				
+			if (path3 < path4){
+				ghostd[k] = LEFT;
 			}
-			for (int i = 0; i < 31; i++){
-				if (!overlap(c4, Rect[i])){
-					path4 = abs (c4.x - pacman.x) + abs (c4.y - pacman.y);
-				}
+			else {
+				ghostd[k] = RIGHT;
 			}
 			break;
-		case LEFT: 
-			for (int i = 0; i < 31; i++){
-				if (!overlap(c1, Rect[i])){
-					path1 = abs (c1.x - pacman.x) + abs (c1.y - pacman.y);
-				}
-				
+		case LEFT:
+			if (path1 < path2){
+				ghostd[k] = UP;
 			}
-			for (int i = 0; i < 31; i++){
-				if (!overlap(c2, Rect[i])){
-					path2 = abs (c2.x - pacman.x) + abs (c2.y - pacman.y);
-				}
+			else {
+				ghostd[k] = DOWN;
 			}
 			break;
-		case RIGHT: 
-			for (int i = 0; i < 31; i++){
-				if (!overlap(c1, Rect[i])){
-					path1 = abs (c1.x - pacman.x) + abs (c1.y - pacman.y);
-				}
-				
+		case RIGHT:
+			if (path1 < path2){
+				ghostd[k] = UP;
 			}
-			for (int i = 0; i < 31; i++){
-				if (!overlap(c2, Rect[i])){
-					path2 = abs (c2.x - pacman.x) + abs (c2.y - pacman.y);
-				}
+			else {
+				ghostd[k] = DOWN;
 			}
 			break;
 	
 	}
-	
 
-
-	if (path1 < path2 && path1 < path3 && path1 < path4){
-			ghostd = UP;
-		}
-	if (path2 < path1 && path2 < path3 && path2 < path4){
-			ghostd = DOWN;
-		}
-	if (path3 < path2 && path3 < path1 && path3 < path4){
-			ghostd = LEFT;
-		}
-	else{
-			ghostd = RIGHT;
-		}
 	
 };
 
@@ -405,33 +395,36 @@ void Model::new_path(){
 void Model::move_ghost(){
 	
 	
+	for (int i = 0; i < 4; i++){
+		if (ghostcollision(ghost[i], ghostd[i]) == true ){
+			new_path(i);
+		}
+	}	
 	
-	if (ghostcollision() == true){
-		new_path();
-	}
+	for (int j = 0; j < 4; j++){
+		switch(ghostd[j]) {
+			case UP:
+				if (!ghostcollision(ghost[j], ghostd[j])){
+					ghost[j].y -= 2; 
+				}
+				break;
+			case DOWN:
+				if (!ghostcollision(ghost[j], ghostd[j])){
+					ghost[j].y += 2; 
+				}
+				break;
+			case LEFT: 
+				if (!ghostcollision(ghost[j], ghostd[j])){
+					ghost[j].x -= 2; 
+				}
+				break;
+			case RIGHT: 
+				if (!ghostcollision(ghost[j], ghostd[j])){
+					ghost[j].x += 2; 
+				}
+				break;
 	
-	switch(ghostd) {
-		case UP:
-			if (!ghostcollision()){
-				ghost1.y -= 2; 
-			}
-			break;
-		case DOWN: 
-			if (!ghostcollision()){
-				ghost1.y += 2; 
-			}
-			break;
-		case LEFT: 
-			if (!ghostcollision()){
-				ghost1.x -= 2; 
-			}
-			break;
-		case RIGHT: 
-			if (!ghostcollision()){
-				ghost1.x += 2; 
-			}
-			break;
-	
+		}
 	}
 	
 };
