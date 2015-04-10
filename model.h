@@ -40,7 +40,7 @@ public:
 	bool pillShown[124];
 	// ghosts 
 	SDL_Rect ghost[4];
-		
+	bool SPshown[5];
 	SDL_Rect SPloc[5];
 	Direction ghostd[4];
 	Direction last_d;

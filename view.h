@@ -24,7 +24,7 @@ public:
 private:
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	SDL_Surface* background;
-
+	SDL_Surface* pacmanclose;
 	SDL_Surface* pill;
 	SDL_Surface* spill;
     SDL_Window* window;
