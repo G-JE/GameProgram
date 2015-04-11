@@ -10,7 +10,7 @@ using namespace std;
 Model::Model(int w, int h) {
 
 	score = 0;
-
+	lifes=3;
 	// x-20 y-15
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
 	
@@ -405,22 +405,22 @@ void Model::move_ghost(){
 		switch(ghostd[j]) {
 			case UP:
 				if (!ghostcollision(ghost[j], ghostd[j])){
-					ghost[j].y -= 2; 
+					ghost[j].y -= 1.5; 
 				}
 				break;
 			case DOWN:
 				if (!ghostcollision(ghost[j], ghostd[j])){
-					ghost[j].y += 2; 
+					ghost[j].y += 1.5; 
 				}
 				break;
 			case LEFT: 
 				if (!ghostcollision(ghost[j], ghostd[j])){
-					ghost[j].x -= 2; 
+					ghost[j].x -= 1.5; 
 				}
 				break;
 			case RIGHT: 
 				if (!ghostcollision(ghost[j], ghostd[j])){
-					ghost[j].x += 2; 
+					ghost[j].x += 1.5; 
 				}
 				break;
 	
@@ -429,7 +429,10 @@ void Model::move_ghost(){
 	
 };
 
-
+void Model::reset(){
+pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
+lifes--;
+};
 
 
 // Destructor deletes dynamically allocated memory

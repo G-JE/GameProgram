@@ -34,6 +34,7 @@ private:
 	SDL_Surface* pacmanclose;
 	SDL_Surface* Ghost;
 	Mix_Music * startup;
+	Mix_Chunk * death;
 	Mix_Chunk * chomp;
 
 

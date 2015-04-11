@@ -37,7 +37,7 @@ void Controller::loop() {
 	
     while(!model->gameOver()) {
         currentTime = SDL_GetTicks();
-		if (currentTime > lastTime + 30) {
+		if (currentTime > lastTime + 100) {
 		   for (int i = 0; i<8; i++){
 				model->move_pac();
 				model->move_ghost();
