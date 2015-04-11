@@ -48,10 +48,10 @@ public:
 	void new_path();
 	bool ghostcollision();
 	// big food pill
-	
+	bool paccollision();
 private:
 	SDL_Rect checkblock, offset, middle, middle2;
-	bool paccollision();
+	
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	int score;
 };

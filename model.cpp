@@ -224,6 +224,7 @@ void Model::move_pac() {
 	for(int i = 0; i < 5; i++){
 		if (pacman.x == SPloc[i].x && pacman.y == SPloc[i].y){
 			SPshown[i] = false;
+			
 		}
 		//else
 		//Change state to get ghosts

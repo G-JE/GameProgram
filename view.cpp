@@ -69,12 +69,11 @@ View::View(string title, int width, int height) {
 	background = load("assets/background.jpg");
 	
 	
-//    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
-//    if (music != NULL) {
-//       Mix_PlayMusic( music, -1 );
-//    }
-//    food = Mix_LoadWAV("assets/yummy.wav");
-    font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
+    startup = Mix_LoadMUS("assets/pacman_beginning.wav");
+	Mix_PlayMusic( startup, 1 );
+
+    chomp = Mix_LoadWAV("assets/pacman_chomp.wav");
+    //font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
 	
 }
 
@@ -124,6 +123,8 @@ void View::show(Model * model) {
 		if (model->pillShown[i] == true){
 		SDL_BlitSurface(pill, NULL, screen, &(model->pills[i]));
 		}
+		
+	
 	}
 			
 	for (int m = 0; m < 5; m++){
@@ -132,12 +133,15 @@ void View::show(Model * model) {
 		}
 	}
 	
+	
 	//SDL_BlitSurface(Ghost, NULL, screen, &ghost_init);
 	//SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
 	
 	//TODO:
 	//draw the ghosts
 	for (int i = 0; i < 4; i++){
+		}
+	}
 	SDL_Rect dest;
 	dest.x = model->ghost[i].x;
 	dest.y = model->ghost[i].y;
