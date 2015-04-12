@@ -137,8 +137,16 @@ void View::show(Model * model) {
 	//SDL_BlitSurface(Ghost, NULL, screen, &ghost_init);
 	//SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
 	
+<<<<<<< HEAD
+	//TODO:
+	//draw the ghosts
+	for (int i = 0; i < 4; i++){
 	
-		
+	
+=======
+	
+		//if (model->direction!=STILL && model->paccollision()== false && model->pacman.x == model->pills[i].x && model->pacman.y+5 == model->pills[i].y && model->pillShown[i]==true ){
+		 //Mix_PlayChannel( -1, chomp, 0);}
 	//TODO:
 	//draw the ghosts
 	for (int i = 0; i < 124; i++){
@@ -152,8 +160,8 @@ void View::show(Model * model) {
 		Mix_PlayChannel( -1, chomp, 0);
 	}
 	for(int i = 0; i < 4; i++){
-	
-	
+	SDL_Rect dest;
+>>>>>>> 2a9df5475559e5a50b0acea93b4d02243a629513
 	dest.x = model->ghost[i].x;
 	dest.y = model->ghost[i].y;
 	SDL_BlitSurface(Ghost, NULL, screen, &dest);

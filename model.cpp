@@ -9,6 +9,7 @@ using namespace std;
 // Constructor initializes the object
 Model::Model(int w, int h) {
 
+	score = 0;
 
 	// x-20 y-15
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
