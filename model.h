@@ -8,8 +8,9 @@
 
 
 
-enum State { RUN, SEEK };
+enum State { RUN, SEEK, RESET};
 enum Direction { UP, DOWN, LEFT, RIGHT, STILL };
+
 
 
 // The model manages the state of the game

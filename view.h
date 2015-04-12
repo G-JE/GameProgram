@@ -35,6 +35,7 @@ private:
 	SDL_Surface* Ghost;
 	Mix_Music * startup;
 	Mix_Chunk * chomp;
+	SDL_Rect dest;
 
 
 //    Mix_Music * music;

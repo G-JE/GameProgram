@@ -140,9 +140,8 @@ void View::show(Model * model) {
 	//TODO:
 	//draw the ghosts
 	for (int i = 0; i < 4; i++){
-		}
-	}
-	SDL_Rect dest;
+	
+	
 	dest.x = model->ghost[i].x;
 	dest.y = model->ghost[i].y;
 	SDL_BlitSurface(Ghost, NULL, screen, &dest);
