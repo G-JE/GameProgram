@@ -42,7 +42,8 @@ void Controller::loop() {
 				model->move_pac();
 				model->move_ghost();
 				SDL_Delay(8);
-				view->show(model);
+				
+			view->show(model);
 		   }
 			lastTime = currentTime;
         }

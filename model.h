@@ -34,6 +34,7 @@ public:
 	void new_path(int k);
 	bool paccollision();
 	bool ghostcollision(SDL_Rect ghost, Direction d);
+	void ghost_bump(int g);
 	bool overlap(SDL_Rect c, SDL_Rect d);
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	

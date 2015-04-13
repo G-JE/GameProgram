@@ -56,7 +56,7 @@ View::View(string title, int width, int height) {
 	//Load ghost
 	Ghost = load("assets/pacman-ghost.png");
 	
-	
+	SDL_SetColorKey(Ghost, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[STILL], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[LEFT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
