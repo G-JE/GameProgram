@@ -10,7 +10,7 @@ using namespace std;
 Model::Model(int w, int h) {
 
 	score = 0;
-	lifes=3;
+	lives=3;
 	// x-20 y-15
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
 	
@@ -129,13 +129,13 @@ bool Model::Collision(SDL_Rect a, SDL_Rect b){
 		return true;
 };
 
-bool Model::paccollision(){
+bool Model::paccollision(SDL_Rect& rect, Direction direction){
 	int lefta, leftb, righta, rightb, topa, topb, bottoma, bottomb;
 	
-	lefta = pacman.x;
-	righta = pacman.x + pacman.w;
-	topa = pacman.y;
-	bottoma = pacman.y + pacman.h;
+	lefta = rect.x;
+	righta = rect.x + rect.w;
+	topa = rect.y;
+	bottoma = rect.y + rect.h;
 	
 	switch(direction){
 		case UP:
@@ -209,10 +209,10 @@ void Model::move_pac() {
 //	if (!moving) { return; }
 	switch(direction) {
 	case STILL: return;
-    case UP: if (!paccollision()){pacman.y += -2;} break;
-    case DOWN: if (!paccollision()){pacman.y += 2;} break;
-    case LEFT: if (!paccollision()){pacman.x += -2;} break;
-    case RIGHT: if (!paccollision()){pacman.x += 2;}break;
+    case UP: if (!paccollision(pacman, direction)){pacman.y += -2;} break;
+    case DOWN: if (!paccollision(pacman, direction)){pacman.y += 2;} break;
+    case LEFT: if (!paccollision(pacman, direction)){pacman.x += -2;} break;
+    case RIGHT: if (!paccollision(pacman, direction)){pacman.x += 2;}break;
 	
 	
     }
@@ -396,7 +396,7 @@ void Model::move_ghost(){
 	
 	
 	for (int i = 0; i < 4; i++){
-		if (ghostcollision(ghost[i], ghostd[i]) == true ){
+		if (paccollision(ghost[i], ghostd[i]) == true ){
 			new_path(i);
 		}
 	}	
@@ -404,22 +404,22 @@ void Model::move_ghost(){
 	for (int j = 0; j < 4; j++){
 		switch(ghostd[j]) {
 			case UP:
-				if (!ghostcollision(ghost[j], ghostd[j])){
+				if (!paccollision(ghost[j], ghostd[j])){
 					ghost[j].y -= 1.5; 
 				}
 				break;
 			case DOWN:
-				if (!ghostcollision(ghost[j], ghostd[j])){
+				if (!paccollision(ghost[j], ghostd[j])){
 					ghost[j].y += 1.5; 
 				}
 				break;
 			case LEFT: 
-				if (!ghostcollision(ghost[j], ghostd[j])){
+				if (!paccollision(ghost[j], ghostd[j])){
 					ghost[j].x -= 1.5; 
 				}
 				break;
 			case RIGHT: 
-				if (!ghostcollision(ghost[j], ghostd[j])){
+				if (!paccollision(ghost[j], ghostd[j])){
 					ghost[j].x += 1.5; 
 				}
 				break;
@@ -430,8 +430,8 @@ void Model::move_ghost(){
 };
 
 void Model::reset(){
-pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
-lifes--;
+pacman.x = 288; pacman.y = 416;
+lives--;
 };
 
 
@@ -445,6 +445,8 @@ bool Model::gameOver() {
 		if (pillShown[i] == false)
 			n++;
 	}
+	if (lives == 0)
+		return true;
 	return n > 123;
 };
 

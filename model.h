@@ -49,9 +49,9 @@ public:
 	void new_path();
 	bool ghostcollision();
 	// big food pill
-	bool paccollision();
+	bool paccollision(SDL_Rect& rect, Direction direction);
 	void reset();
-	int lifes;
+	int lives;
 private:
 	SDL_Rect checkblock, offset, middle, middle2;
 	
