@@ -50,6 +50,8 @@ public:
 	bool ghostcollision();
 	// big food pill
 	bool paccollision();
+	void reset();
+	int lifes;
 private:
 	SDL_Rect checkblock, offset, middle, middle2;
 	

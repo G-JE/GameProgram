@@ -34,6 +34,7 @@ private:
 	std::map<Direction, SDL_Surface*> pacman;
 	SDL_Surface* Ghost;
 	Mix_Music * startup;
+	Mix_Chunk * death;
 	Mix_Chunk * chomp;
 	SDL_Rect dest;
 

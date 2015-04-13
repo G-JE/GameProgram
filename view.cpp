@@ -73,6 +73,7 @@ View::View(string title, int width, int height) {
 	Mix_PlayMusic( startup, 1 );
 
     chomp = Mix_LoadWAV("assets/pacman_chomp.wav");
+	death = Mix_LoadWAV("assets/pacman_death.wav");
     //font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
 	
 }
@@ -150,6 +151,21 @@ void View::show(Model * model) {
 		Mix_PlayChannel( -1, chomp, 0);
 		if (model->direction == DOWN && model->pacman.x == model->pills[i].x && model->pacman.y +4 == model->pills[i].y && model->pillShown[i]==true)
 		Mix_PlayChannel( -1, chomp, 0);
+	}
+	for (int i = 0; i < 4; i++){
+		 if (model->direction == RIGHT || model->direction == LEFT){
+			if((model->pacman.x == model->ghost[i].x || model->pacman.x + 4 == model->ghost[i].x || model->pacman.x == model->ghost[i].x+4)  && (model->pacman.y == model->ghost[i].y )){
+				model->reset();
+				Mix_PlayChannel( -1, death, 0);
+				}
+			}
+		if (model->direction == UP || model->direction == DOWN){
+			if(model->pacman.x == model->ghost[i].x && (model->pacman.y + 4 == model->ghost[i].y || model->pacman.y == model->ghost[i].y || model->pacman.y == model->ghost[i].y+4)){
+				model->reset();
+				Mix_PlayChannel( -1, death, 0);
+			}
+		}
+		
 	}
 	for(int i = 0; i < 4; i++){
 	
