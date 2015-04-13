@@ -32,6 +32,7 @@ public:
 	void move_ghost();
 	void new_path(int k);
 	bool ghostcollision(SDL_Rect ghost, Direction d);
+	void ghost_bump(int g);
     // instantiate objects
 	SDL_Rect pacman;
 	SDL_Rect Rect[32];
