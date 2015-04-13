@@ -150,21 +150,16 @@ void View::show(Model * model) {
 		if (model->direction == DOWN && model->pacman.x == model->pills[i].x && model->pacman.y +4 == model->pills[i].y && model->pillShown[i]==true)
 		Mix_PlayChannel( -1, chomp, 0);
 	}
-	for (int i = 0; i < 4; i++){
-		 if (model->direction == RIGHT || model->direction == LEFT){
-			if((model->pacman.x == model->ghost[i].x || model->pacman.x + 4 == model->ghost[i].x || model->pacman.x == model->ghost[i].x+4)  && (model->pacman.y == model->ghost[i].y )){
+
+		for(int i = 0; i < 4; i++){
+			if (model->overlap(model->pacman, model->ghost[i])){ 
+				if(model->direction != STILL){
 				model->reset();
+				model->direction = STILL;
 				Mix_PlayChannel( -1, death, 0);
 				}
 			}
-		if (model->direction == UP || model->direction == DOWN){
-			if(model->pacman.x == model->ghost[i].x && (model->pacman.y + 4 == model->ghost[i].y || model->pacman.y == model->ghost[i].y || model->pacman.y == model->ghost[i].y+4)){
-				model->reset();
-				Mix_PlayChannel( -1, death, 0);
-			}
 		}
-		
-	}
 	for(int i = 0; i < 4; i++){
 	SDL_Rect dest;
 	dest.x = model->ghost[i].x;
