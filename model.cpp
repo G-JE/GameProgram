@@ -391,6 +391,31 @@ void Model::new_path(int k){
 };
 
 
+void Model::ghost_bump(int g){
+	for (int i = 0; i < 4; i++){
+		if (i != g){
+			if ((overlap(ghost[i], ghost[g])) && (ghostd[i] == ghostd[g])){
+				switch(ghostd[g]) {
+			case UP:
+				ghostd[g] = DOWN;
+				break;
+			case DOWN:
+				ghostd[g] = UP;
+				break;
+			case LEFT: 
+				ghostd[g] = RIGHT;
+				break;
+			case RIGHT: 
+				ghostd[g] = LEFT;
+				break;
+	
+		}
+			
+			}
+		}
+	}
+};
+
 //moves the ghost
 void Model::move_ghost(){
 	
@@ -399,7 +424,19 @@ void Model::move_ghost(){
 		if (ghostcollision(ghost[i], ghostd[i]) == true ){
 			new_path(i);
 		}
-	}	
+	}
+	
+	for (int i = 0; i < 4; i++){
+		ghost_bump(i);
+	}
+	
+	for (int i = 0; i < 4; i++){
+		if (ghost[i].x == 320 && ghost[i].y == 224 && ghostd[i] == DOWN){
+			ghostd[i] = UP;
+		}
+	}
+	
+	
 	
 	for (int j = 0; j < 4; j++){
 		switch(ghostd[j]) {
