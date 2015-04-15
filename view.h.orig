@@ -34,12 +34,21 @@ private:
     SDL_Surface* load(char * path);
 	std::map<Direction, SDL_Surface*> pacman;
 	SDL_Surface* Ghost;
+<<<<<<< HEAD
 	Mix_Music * startup;
 	Mix_Chunk * death;
 	Mix_Chunk * chomp;
 	SDL_Rect dest;
 
 
+//    Mix_Music * music;
+//    Mix_Chunk * food;
+=======
+	
+    Mix_Music * startup;
+    Mix_Chunk * death;
+	Mix_Chunk * chomp;
+>>>>>>> c3fa8f1e06224b7265f88b182877dde8743189a3
     TTF_Font * font;
 	int frame;
 };
