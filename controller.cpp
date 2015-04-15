@@ -34,7 +34,8 @@ void Controller::loop() {
     direction[SDLK_DOWN] = DOWN;
     direction[SDLK_LEFT] = LEFT;
     direction[SDLK_RIGHT] = RIGHT;
-	
+	view->show(model);
+	SDL_Delay(4000);
     while(!model->gameOver()) {
         currentTime = SDL_GetTicks();
 		if (currentTime > lastTime + 100) {

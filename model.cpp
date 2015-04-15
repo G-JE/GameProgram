@@ -421,7 +421,7 @@ void Model::move_ghost(){
 	
 	
 	for (int i = 0; i < 4; i++){
-		if (paccollision(ghost[i], ghostd[i]) == true ){
+		if (ghostcollision(ghost[i], ghostd[i]) == true ){
 			new_path(i);
 		}
 	}
@@ -441,22 +441,22 @@ void Model::move_ghost(){
 	for (int j = 0; j < 4; j++){
 		switch(ghostd[j]) {
 			case UP:
-				if (!paccollision(ghost[j], ghostd[j])){
+				if (!ghostcollision(ghost[j], ghostd[j])){
 					ghost[j].y -= 1.5; 
 				}
 				break;
 			case DOWN:
-				if (!paccollision(ghost[j], ghostd[j])){
+				if (!ghostcollision(ghost[j], ghostd[j])){
 					ghost[j].y += 1.5; 
 				}
 				break;
 			case LEFT: 
-				if (!paccollision(ghost[j], ghostd[j])){
+				if (!ghostcollision(ghost[j], ghostd[j])){
 					ghost[j].x -= 1.5; 
 				}
 				break;
 			case RIGHT: 
-				if (!paccollision(ghost[j], ghostd[j])){
+				if (!ghostcollision(ghost[j], ghostd[j])){
 					ghost[j].x += 1.5; 
 				}
 				break;

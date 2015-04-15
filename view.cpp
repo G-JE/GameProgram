@@ -58,7 +58,7 @@ View::View(string title, int width, int height) {
 	SDL_SetColorKey(pacmanclose, SDL_TRUE, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
 	//Load ghost
 	Ghost = load("assets/pacman-ghost.png");
-	pacmanclose = load("assets/Pacmanclose.png");
+	
 	
 	SDL_SetColorKey(Ghost, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
@@ -169,11 +169,7 @@ void View::show(Model * model) {
 	SDL_BlitSurface(Ghost, NULL, screen, &dest);
 	}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
-	if (frame % 48 == 0)
-		SDL_BlitSurface(pacmanclose, NULL, screen, &(model->pacman));
 	
-	
-	else
 	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
 	
 	frame ++;
