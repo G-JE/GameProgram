@@ -442,22 +442,22 @@ void Model::move_ghost(){
 		switch(ghostd[j]) {
 			case UP:
 				if (!ghostcollision(ghost[j], ghostd[j])){
-					ghost[j].y -= 1.5; 
+					ghost[j].y -= 2; 
 				}
 				break;
 			case DOWN:
 				if (!ghostcollision(ghost[j], ghostd[j])){
-					ghost[j].y += 1.5; 
+					ghost[j].y += 2; 
 				}
 				break;
 			case LEFT: 
 				if (!ghostcollision(ghost[j], ghostd[j])){
-					ghost[j].x -= 1.5; 
+					ghost[j].x -= 2; 
 				}
 				break;
 			case RIGHT: 
 				if (!ghostcollision(ghost[j], ghostd[j])){
-					ghost[j].x += 1.5; 
+					ghost[j].x += 2; 
 				}
 				break;
 	

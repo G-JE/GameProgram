@@ -48,6 +48,7 @@ View::View(string title, int width, int height) {
 	
 	
     // Load assets
+	life = load("assets/lives.png");
     pacman[RIGHT] = load("assets/pacmanR.png");
 	pacman[STILL] = load("assets/pacmanR.png");
 	pacman[LEFT] = load("assets/Lpacman.png");
@@ -59,7 +60,7 @@ View::View(string title, int width, int height) {
 	//Load ghost
 	Ghost = load("assets/pacman-ghost.png");
 	
-	
+	SDL_SetColorKey(life, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(Ghost, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[STILL], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
@@ -162,11 +163,15 @@ void View::show(Model * model) {
 			}
 		}
 	for(int i = 0; i < 4; i++){
-	
-	
 	dest.x = model->ghost[i].x;
 	dest.y = model->ghost[i].y;
 	SDL_BlitSurface(Ghost, NULL, screen, &dest);
+	}
+	SDL_Rect lr;
+	for (int i = 0; i < model->lives; i++){
+		lr.x = 512 + (i*24);
+		lr.y = 450;
+		SDL_BlitSurface(life, NULL, screen, &lr);
 	}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 	

@@ -23,6 +23,7 @@ public:
 //	SDL_Rect Rect[31];
 private:
 	bool Collision(SDL_Rect a, SDL_Rect b);
+	SDL_Surface* life;
 	SDL_Surface* background;
 	SDL_Surface* pacmanclose;
 	SDL_Surface* pill;
