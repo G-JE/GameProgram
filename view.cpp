@@ -53,12 +53,12 @@ View::View(string title, int width, int height) {
 	pacman[LEFT] = load("assets/Lpacman.png");
 	pacman[UP] = load("assets/Upacman.png");
 	pacman[DOWN] = load("assets/Dpacman.png");
-	pacmanclose = load("assets/Pacmanclose.png");
 	
-	SDL_SetColorKey(pacmanclose, SDL_TRUE, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
+	
+	
 	//Load ghost
 	Ghost = load("assets/pacman-ghost.png");
-	pacmanclose = load("assets/Pacmanclose.png");
+	
 	
 	SDL_SetColorKey(Ghost, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
@@ -67,6 +67,13 @@ View::View(string title, int width, int height) {
 	SDL_SetColorKey(pacman[UP], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[DOWN], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	background = load("assets/background.jpg");
+	
+	
+	startup = Mix_LoadMUS("assets/pacman_beginning.wav");
+		Mix_PlayMusic(startup, 1);
+		
+	chomp = Mix_LoadWAV("assets/pacman_chomp.wav");
+	death = Mix_LoadWAV("assets/pacman_death.wav");
 	
 	
 //    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
@@ -137,18 +144,17 @@ void View::show(Model * model) {
 	
 	//TODO:
 	//draw the ghosts
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 3; i++){
 	SDL_Rect dest;
 	dest.x = model->ghost[i].x;
 	dest.y = model->ghost[i].y;
 	SDL_BlitSurface(Ghost, NULL, screen, &dest);
 	}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
-	if (frame % 48 == 0)
-		SDL_BlitSurface(pacmanclose, NULL, screen, &(model->pacman));
 	
 	
-	else
+	
+
 	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
 	
 	frame ++;

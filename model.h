@@ -31,6 +31,7 @@ public:
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	// Move the ghosts (if the next spot is a wall, switch direction)
 	void move_ghost();
+	void reset();
 	void new_path(int k);
 	bool ghostcollision(SDL_Rect ghost, Direction d);
 	void ghost_bump(int g);
@@ -42,8 +43,8 @@ public:
 	// Is the pill being shown?
 	bool pillShown[124];
 	// ghosts 
-	SDL_Rect ghost[4];
-		
+	SDL_Rect ghost[3];
+	int lifes;	
 	SDL_Rect SPloc[5];
 	Direction ghostd[4];
 	Direction last_d;

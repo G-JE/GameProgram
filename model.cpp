@@ -15,9 +15,8 @@ Model::Model(int w, int h) {
 	
 //initialize the ghosts
 	ghost[0].x = 320; ghost[0].y = 240; ghost[0].h = 32; ghost[0].w = 32;	
-	ghost[1].x = 576; ghost[1].y = 64; ghost[1].h = 32; ghost[1].w = 32;
-	ghost[2].x = 576; ghost[2].y = 416; ghost[2].h = 32; ghost[2].w = 32;
-	ghost[3].x = 64; ghost[3].y = 416; ghost[3].h = 32; ghost[3].w = 32;
+	ghost[1].x = 576; ghost[1].y = 64; ghost[1].h = 32; ghost[1].w = 32;	
+	ghost[2].x = 64; ghost[2].y = 416; ghost[2].h = 32; ghost[2].w = 32;
 //	static SDL_Rect walls = {{0,0,32,640}, };
 // Rect = walls;
 	Rect[0].x = 0; 		Rect[0].y = 0; 		Rect[0].w = 32; 	Rect[0].h = 640;
@@ -103,9 +102,10 @@ Model::Model(int w, int h) {
 	direction = STILL;
 	ghostd[0] = UP;
 	ghostd[1] = DOWN;
-	ghostd[2] = LEFT;
-	ghostd[3] = RIGHT;
+	ghostd[2] = RIGHT;
 	//initialize new directions for my ghosts
+	
+	lifes = 3;
 };
 
 
@@ -205,6 +205,13 @@ bool Model::paccollision(){
 //*if next Rect is a barrier, direction is STILL
 void Model::move_pac() {
 
+	for(int i = 0; i < 4; i++){
+			if (pacman.x == ghost[i].x && pacman.y == ghost[i].y){ 	
+				reset();
+				direction = STILL;
+			}
+		}
+
 //	if (!moving) { return; }
 	switch(direction) {
 	case STILL: return;
@@ -228,10 +235,20 @@ void Model::move_pac() {
 		//else
 		//Change state to get ghosts
 	}
+	
+	if (lifes == 0){
+		gameOver();
+	}
 };
 
 void Model::go(Direction d){
 	direction = d;
+};
+
+
+void Model::reset(){
+	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
+	lifes--;
 };
 
 
@@ -390,7 +407,7 @@ void Model::new_path(int k){
 
 
 void Model::ghost_bump(int g){
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 3; i++){
 		if (i != g){
 			if ((overlap(ghost[i], ghost[g])) && (ghostd[i] == ghostd[g])){
 				switch(ghostd[g]) {
@@ -418,17 +435,17 @@ void Model::ghost_bump(int g){
 void Model::move_ghost(){
 	
 	
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 3; i++){
 		if (ghostcollision(ghost[i], ghostd[i]) == true ){
 			new_path(i);
 		}
 	}
 	
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 3; i++){
 		ghost_bump(i);
 	}
 	
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 3; i++){
 		if (ghost[i].x == 320 && ghost[i].y == 224 && ghostd[i] == DOWN){
 			ghostd[i] = UP;
 		}
@@ -436,7 +453,7 @@ void Model::move_ghost(){
 	
 	
 	
-	for (int j = 0; j < 4; j++){
+	for (int j = 0; j < 3; j++){
 		switch(ghostd[j]) {
 			case UP:
 				if (!ghostcollision(ghost[j], ghostd[j])){
@@ -473,6 +490,7 @@ Model::~Model() {
 
 bool Model::gameOver() {
 	int n = 0;
+	
 	for (int i = 0; i < 124; i++){
 		if (pillShown[i] == false)
 			n++;
