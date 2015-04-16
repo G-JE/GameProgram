@@ -229,16 +229,17 @@ void Model::move_pac() {
 	
 	for(int i = 0; i < 124; i++){
 		if (pacman.x == pills[i].x && pacman.y == pills[i].y){
-			pillShown[i] = false;
-			score += 100;
-			if (state == RUN){
+			if (state == RUN && pillShown[i] == true){
 				time += 1;
-				if (time == 25){
+				if (time == 7){
 					state = SEEK;
 					time = 0;
 				}
 				
 			}
+			pillShown[i] = false;
+			score += 100;
+			
 		}
 	}
 	for(int i = 0; i < 5; i++){
@@ -264,10 +265,15 @@ void Model::reset(){
 	ghost[0].x = 320; ghost[0].y = 240; ghost[0].h = 32; ghost[0].w = 32;	
 	ghost[1].x = 576; ghost[1].y = 64; ghost[1].h = 32; ghost[1].w = 32;	
 	ghost[2].x = 64; ghost[2].y = 416; ghost[2].h = 32; ghost[2].w = 32;
+	direction = STILL;
 	state = SEEK;
 	lives--;
 };
 
+void Model::resetghost(int i){
+	ghost[i].x = 320; ghost[i].y = 240; ghost[i].h = 32; ghost[i].w = 32;
+	ghostd[i] = UP;
+}
 
 //TODO: make ghost collision function
 //just like pacman collision

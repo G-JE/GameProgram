@@ -54,6 +54,7 @@ public:
 	void new_path();
 	State state;
 	int lives;
+	void resetghost(int i);
 private:
 	SDL_Rect checkblock, offset, middle, middle2;
 	

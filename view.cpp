@@ -211,10 +211,7 @@ void View::show(Model * model) {
 		for(int i = 0; i < 4; i++){
 			if (model->overlap(model->pacman, model->ghost[i])){ 
 				if(model->direction != STILL){
-				model->reset();
-				model->direction = STILL;
-				Mix_PlayChannel( -1, death, 0);
-				SDL_Delay(2000);
+				model->resetghost(i);
 				}
 			}
 		}
