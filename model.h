@@ -44,6 +44,7 @@ public:
 	// Is the pill being shown?
 	bool pillShown[124];
 	// ghosts 
+	int time;
 	SDL_Rect ghost[3];
 	bool SPshown[5];
 	SDL_Rect SPloc[5];
@@ -51,7 +52,7 @@ public:
 	Direction last_d;
 	bool overlap(SDL_Rect c, SDL_Rect d);
 	void new_path();
-	
+	State state;
 	int lives;
 private:
 	SDL_Rect checkblock, offset, middle, middle2;

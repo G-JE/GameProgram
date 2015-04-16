@@ -56,7 +56,7 @@ Model::Model(int w, int h) {
 	middle.x = 224;		middle.y = 192;		middle.h = 96;		middle.w = 192;
 	middle2.x = 320;	middle2.y = 160;	middle2.w = 32;		middle2.h = 32;
 	checkblock.h = 32;	checkblock.w = 32;	checkblock.x = 0;	checkblock.y = 0;
-
+	time =0;
 	for (int i = 0; i <124 ; i++){
 		pillShown[i] = true;
 	}
@@ -99,7 +99,8 @@ Model::Model(int w, int h) {
 		checkblock.x += 32;
 		offset.x += 32;
 	}
-
+	
+	state = SEEK;
 	direction = STILL;
 	ghostd[0] = UP;
 	ghostd[1] = DOWN;
@@ -223,20 +224,34 @@ void Model::move_pac() {
 	
 	
     }
+	
+		
+	
 	for(int i = 0; i < 124; i++){
 		if (pacman.x == pills[i].x && pacman.y == pills[i].y){
 			pillShown[i] = false;
 			score += 100;
+			if (state == RUN){
+				time += 1;
+				if (time == 25){
+					state = SEEK;
+					time = 0;
+				}
+				
+			}
 		}
 	}
 	for(int i = 0; i < 5; i++){
 		if (pacman.x == SPloc[i].x && pacman.y == SPloc[i].y){
+			if (SPshown[i] == true)
+			state = RUN;
 			SPshown[i] = false;
 			
 		}
 		//else
 		//Change state to get ghosts
 	}
+	
 };
 
 void Model::go(Direction d){
@@ -246,6 +261,10 @@ void Model::go(Direction d){
 
 void Model::reset(){
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
+	ghost[0].x = 320; ghost[0].y = 240; ghost[0].h = 32; ghost[0].w = 32;	
+	ghost[1].x = 576; ghost[1].y = 64; ghost[1].h = 32; ghost[1].w = 32;	
+	ghost[2].x = 64; ghost[2].y = 416; ghost[2].h = 32; ghost[2].w = 32;
+	state = SEEK;
 	lives--;
 };
 

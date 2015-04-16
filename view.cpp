@@ -59,16 +59,18 @@ View::View(string title, int width, int height) {
 	
 	//Load ghost
 	Ghost = load("assets/pacman-ghost.png");
+	Ghost2 = load("assets/RUNghost.png");
 	
 	SDL_SetColorKey(life, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(Ghost, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_SetColorKey(Ghost2, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[STILL], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[LEFT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[UP], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[DOWN], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	background = load("assets/background.jpg");
-	
+	background2 = load("assets/RUNbackground.jpg");
 	
     startup = Mix_LoadMUS("assets/pacman_beginning.wav");
 	Mix_PlayMusic( startup, 1 );
@@ -119,7 +121,7 @@ SDL_Surface* View::load(char * path) {
 }
 
 void View::show(Model * model) {
-	
+	if (model->state == SEEK){
 	SDL_BlitSurface(background, NULL, screen, NULL);
 	
 	for (int i = 0; i < 124; i++){
@@ -136,14 +138,9 @@ void View::show(Model * model) {
 		}
 	}
 	
-	
-	//SDL_BlitSurface(Ghost, NULL, screen, &ghost_init);
-	//SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
-	
 		
-	//TODO:
-	//draw the ghosts
-	for (int i = 0; i < 3; i++){
+	
+	for (int i = 0; i < 124; i++){
 		 if (model->direction == RIGHT && model->pacman.x + 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
 		Mix_PlayChannel( -1, chomp, 0);
 		if (model->direction == LEFT && model->pacman.x - 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
@@ -152,7 +149,7 @@ void View::show(Model * model) {
 		Mix_PlayChannel( -1, chomp, 0);
 		if (model->direction == DOWN && model->pacman.x == model->pills[i].x && model->pacman.y +4 == model->pills[i].y && model->pillShown[i]==true)
 		Mix_PlayChannel( -1, chomp, 0);
-	}
+		}
 		//Pacman & Ghost collision
 		for(int i = 0; i < 4; i++){
 			if (model->overlap(model->pacman, model->ghost[i])){ 
@@ -160,20 +157,21 @@ void View::show(Model * model) {
 				model->reset();
 				model->direction = STILL;
 				Mix_PlayChannel( -1, death, 0);
+				SDL_Delay(2000);
 				}
 			}
 		}
 		for (int i = 0; i < 3; i++){
-	dest.x = model->ghost[i].x;
-	dest.y = model->ghost[i].y;
-	SDL_BlitSurface(Ghost, NULL, screen, &dest);
-	}
+		dest.x = model->ghost[i].x;
+		dest.y = model->ghost[i].y;
+		SDL_BlitSurface(Ghost, NULL, screen, &dest);
+		}
 	SDL_Rect lr;
 	for (int i = 0; i < model->lives; i++){
 		lr.x = 512 + (i*24);
 		lr.y = 450;
 		SDL_BlitSurface(life, NULL, screen, &lr);
-	}
+		}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 	
 
@@ -181,5 +179,63 @@ void View::show(Model * model) {
 	
 	
 	SDL_UpdateWindowSurface(window);
+	}
+	
+	if (model->state == RUN){
+		SDL_BlitSurface(background2, NULL, screen, NULL);
+	
+	for (int i = 0; i < 124; i++){
+		if (model->pillShown[i] == true){
+		SDL_BlitSurface(pill, NULL, screen, &(model->pills[i]));
+		}
+		
+	
+	}
+			
+	for (int m = 0; m < 5; m++){
+		if (model->SPshown[m] == true){
+		SDL_BlitSurface(spill, NULL, screen, &model->SPloc[m]);
+		}
+	}
+	for (int i = 0; i < 124; i++){
+		 if (model->direction == RIGHT && model->pacman.x + 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		if (model->direction == LEFT && model->pacman.x - 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		if (model->direction == UP && model->pacman.x == model->pills[i].x && model->pacman.y -4 == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		if (model->direction == DOWN && model->pacman.x == model->pills[i].x && model->pacman.y +4 == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		}
+		//Pacman & Ghost collision
+		for(int i = 0; i < 4; i++){
+			if (model->overlap(model->pacman, model->ghost[i])){ 
+				if(model->direction != STILL){
+				model->reset();
+				model->direction = STILL;
+				Mix_PlayChannel( -1, death, 0);
+				SDL_Delay(2000);
+				}
+			}
+		}
+		for (int i = 0; i < 3; i++){
+		dest.x = model->ghost[i].x;
+		dest.y = model->ghost[i].y;
+		SDL_BlitSurface(Ghost2, NULL, screen, &dest);
+		}
+	SDL_Rect lr;
+	for (int i = 0; i < model->lives; i++){
+		lr.x = 512 + (i*24);
+		lr.y = 450;
+		SDL_BlitSurface(life, NULL, screen, &lr);
+		}
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+	
+
+	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
+	
+	
+	SDL_UpdateWindowSurface(window);
+	}
   }
 
