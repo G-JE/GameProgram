@@ -10,7 +10,7 @@ using namespace std;
 Model::Model(int w, int h) {
 
 	score = 0;
-	lifes = 3;
+	lives = 3;
 	// x-20 y-15
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
 	
@@ -56,7 +56,7 @@ Model::Model(int w, int h) {
 	middle.x = 224;		middle.y = 192;		middle.h = 96;		middle.w = 192;
 	middle2.x = 320;	middle2.y = 160;	middle2.w = 32;		middle2.h = 32;
 	checkblock.h = 32;	checkblock.w = 32;	checkblock.x = 0;	checkblock.y = 0;
-
+	time =0;
 	for (int i = 0; i <124 ; i++){
 		pillShown[i] = true;
 	}
@@ -99,14 +99,15 @@ Model::Model(int w, int h) {
 		checkblock.x += 32;
 		offset.x += 32;
 	}
-
+	
+	state = SEEK;
 	direction = STILL;
 	ghostd[0] = UP;
 	ghostd[1] = DOWN;
 	ghostd[2] = RIGHT;
 	//initialize new directions for my ghosts
 	
-	lifes = 3;
+	
 };
 
 
@@ -223,14 +224,28 @@ void Model::move_pac() {
 	
 	
     }
+	
+		
+	
 	for(int i = 0; i < 124; i++){
 		if (pacman.x == pills[i].x && pacman.y == pills[i].y){
+			if (state == RUN && pillShown[i] == true){
+				time += 1;
+				if (time == 7){
+					state = SEEK;
+					time = 0;
+				}
+				
+			}
 			pillShown[i] = false;
 			score += 100;
+			
 		}
 	}
 	for(int i = 0; i < 5; i++){
 		if (pacman.x == SPloc[i].x && pacman.y == SPloc[i].y){
+			if (SPshown[i] == true)
+			state = RUN;
 			SPshown[i] = false;
 			
 		}
@@ -238,9 +253,6 @@ void Model::move_pac() {
 		//Change state to get ghosts
 	}
 	
-	if (lifes == 0){
-		gameOver();
-	}
 };
 
 void Model::go(Direction d){
@@ -248,8 +260,15 @@ void Model::go(Direction d){
 };
 
 
+void Model::reset(){
+		pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
+		lives--;
+};
 
-
+void Model::resetghost(int i){
+	ghost[i].x = 320; ghost[i].y = 240; ghost[i].h = 32; ghost[i].w = 32;
+	ghostd[i] = UP;
+};
 
 //TODO: make ghost collision function
 //just like pacman collision
@@ -489,11 +508,6 @@ void Model::move_ghost(){
 	
 };
 
-void Model::reset(){
-pacman.x = 288; pacman.y = 416;
-lifes--;
-};
-
 
 // Destructor deletes dynamically allocated memory
 Model::~Model() {
@@ -506,7 +520,7 @@ bool Model::gameOver() {
 		if (pillShown[i] == false)
 			n++;
 	}
-	if (lifes == 0)
+	if (lives == 0)
 		return true;
 	return n > 123;
 };

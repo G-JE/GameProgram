@@ -28,7 +28,7 @@ public:
 	// Move (if the next spot is a wall d = STILL)
 	Direction direction;
 	void move_pac();
-	bool paccollision();
+	bool paccollision(SDL_Rect& rect, Direction direction);
 	bool Collision(SDL_Rect a, SDL_Rect b);
 	// Move the ghosts (if the next spot is a wall, switch direction)
 	void move_ghost();
@@ -44,21 +44,22 @@ public:
 	// Is the pill being shown?
 	bool pillShown[124];
 	// ghosts 
+	int time;
 	SDL_Rect ghost[3];
 	bool SPshown[5];
 	SDL_Rect SPloc[5];
+	SDL_Rect middle;
+	SDL_Rect middle2;
+	SDL_Rect checkblock;
+	SDL_Rect offset;
 	Direction ghostd[4];
 	Direction last_d;
 	bool overlap(SDL_Rect c, SDL_Rect d);
 	void new_path();
-	bool ghostcollision();
-	
-	bool paccollision(SDL_Rect& rect, Direction direction);
-	
-	int lifes;
-private:
-	SDL_Rect checkblock, offset, middle, middle2;
-	
+	State state;
+	void resetghost(int i);
+
+	int lives;
 	int score;
 };
 
