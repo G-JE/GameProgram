@@ -43,6 +43,7 @@ public:
 	SDL_Rect pills[124];
 	// Is the pill being shown?
 	bool pillShown[124];
+	void newlevel();
 	// ghosts 
 	int time;
 	SDL_Rect ghost[3];
@@ -55,10 +56,10 @@ public:
 	State state;
 	int lives;
 	void resetghost(int i);
+	int score;
 private:
 	SDL_Rect checkblock, offset, middle, middle2;
 	
-	int score;
 };
 
 #endif

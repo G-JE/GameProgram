@@ -1,5 +1,5 @@
 #include "view.h"
-
+#include <sstream>
 
 using namespace std;
 // Initialize Barriers
