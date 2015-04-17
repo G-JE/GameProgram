@@ -69,13 +69,28 @@ View::View(string title, int width, int height) {
 	background = load("assets/background.jpg");
 	
 	
+<<<<<<< HEAD
+	startup = Mix_LoadMUS("assets/pacman_beginning.wav");
+		Mix_PlayMusic(startup, 1);
+		
+	chomp = Mix_LoadWAV("assets/pacman_chomp.wav");
+	death = Mix_LoadWAV("assets/pacman_death.wav");
+	
+	
+//    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
+//    if (music != NULL) {
+//       Mix_PlayMusic( music, -1 );
+//    }
+//    food = Mix_LoadWAV("assets/yummy.wav");
+    font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
+=======
     startup = Mix_LoadMUS("assets/pacman_beginning.wav");
 	Mix_PlayMusic( startup, 1 );
 
     chomp = Mix_LoadWAV("assets/pacman_chomp.wav");
 	death = Mix_LoadWAV("assets/pacman_death.wav");
     //font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
-	
+>>>>>>> 2dc321f381b3813a5918a3789022e356c337b7ac
 	
 }
 
@@ -142,6 +157,10 @@ void View::show(Model * model) {
 		
 	//TODO:
 	//draw the ghosts
+<<<<<<< HEAD
+	for (int i = 0; i < 3; i++){
+	SDL_Rect dest;
+=======
 	for (int i = 0; i < 124; i++){
 		 if (model->direction == RIGHT && model->pacman.x + 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
 		Mix_PlayChannel( -1, chomp, 0);
@@ -153,20 +172,36 @@ void View::show(Model * model) {
 		Mix_PlayChannel( -1, chomp, 0);
 	}
 		//Pacman & Ghost collision
-			
-		
-	for(int i = 0; i < 3; i++){
+		for(int i = 0; i < 4; i++){
+			if (model->overlap(model->pacman, model->ghost[i])){ 
+				if(model->direction != STILL){
+				model->reset();
+				model->direction = STILL;
+				Mix_PlayChannel( -1, death, 0);
+				}
+			}
+		}
+	for(int i = 0; i < 4; i++){
+	
+	
+>>>>>>> 2dc321f381b3813a5918a3789022e356c337b7ac
 	dest.x = model->ghost[i].x;
 	dest.y = model->ghost[i].y;
 	SDL_BlitSurface(Ghost, NULL, screen, &dest);
 	}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+<<<<<<< HEAD
+	
+	
 	
 
+=======
+	
+>>>>>>> 2dc321f381b3813a5918a3789022e356c337b7ac
 	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
 	
 	frame ++;
 	
 	SDL_UpdateWindowSurface(window);
-  
-}
+  }
+

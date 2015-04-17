@@ -9,7 +9,8 @@ using namespace std;
 // Constructor initializes the object
 Model::Model(int w, int h) {
 
-
+	score = 0;
+	lifes = 3;
 	// x-20 y-15
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
 	
@@ -128,13 +129,13 @@ bool Model::Collision(SDL_Rect a, SDL_Rect b){
 		return true;
 };
 
-bool Model::paccollision(){
+bool Model::paccollision(SDL_Rect& rect, Direction direction){
 	int lefta, leftb, righta, rightb, topa, topb, bottoma, bottomb;
 	
-	lefta = pacman.x;
-	righta = pacman.x + pacman.w;
-	topa = pacman.y;
-	bottoma = pacman.y + pacman.h;
+	lefta = rect.x;
+	righta = rect.x + rect.w;
+	topa = rect.y;
+	bottoma = rect.y + rect.h;
 	
 	switch(direction){
 		case UP:
@@ -215,10 +216,10 @@ void Model::move_pac() {
 //	if (!moving) { return; }
 	switch(direction) {
 	case STILL: return;
-    case UP: if (!paccollision()){pacman.y += -2;} break;
-    case DOWN: if (!paccollision()){pacman.y += 2;} break;
-    case LEFT: if (!paccollision()){pacman.x += -2;} break;
-    case RIGHT: if (!paccollision()){pacman.x += 2;}break;
+    case UP: if (!paccollision(pacman, direction)){pacman.y += -2;} break;
+    case DOWN: if (!paccollision(pacman, direction)){pacman.y += 2;} break;
+    case LEFT: if (!paccollision(pacman, direction)){pacman.x += -2;} break;
+    case RIGHT: if (!paccollision(pacman, direction)){pacman.x += 2;}break;
 	
 	
     }
@@ -231,6 +232,7 @@ void Model::move_pac() {
 	for(int i = 0; i < 5; i++){
 		if (pacman.x == SPloc[i].x && pacman.y == SPloc[i].y){
 			SPshown[i] = false;
+			
 		}
 		//else
 		//Change state to get ghosts
@@ -246,10 +248,7 @@ void Model::go(Direction d){
 };
 
 
-void Model::reset(){
-	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
-	lifes--;
-};
+
 
 
 //TODO: make ghost collision function
@@ -439,7 +438,16 @@ void Model::move_ghost(){
 		if (ghostcollision(ghost[i], ghostd[i]) == true ){
 			new_path(i);
 		}
+		else if ((ghost[i].x == 96 && ghost[i].y == 0) || (ghost[i].x == 320 && ghost[i].y == 128) || (ghost[i].x == 576 && ghost[i].y == 192)
+					|| (ghost[i].x == 384 && ghost[i].y == 384) || (ghost[i].x == 160 && ghost[i].y == 320) || (ghost[i].x == 96 && ghost[i].y == 192)
+					||  (ghost[i].x == 448 && ghost[i].y == 192)){
+						new_path(i);
+				}
 	}
+	
+	
+		
+	
 	
 	for (int i = 0; i < 3; i++){
 		ghost_bump(i);
@@ -481,7 +489,10 @@ void Model::move_ghost(){
 	
 };
 
-
+void Model::reset(){
+pacman.x = 288; pacman.y = 416;
+lifes--;
+};
 
 
 // Destructor deletes dynamically allocated memory
@@ -495,6 +506,8 @@ bool Model::gameOver() {
 		if (pillShown[i] == false)
 			n++;
 	}
+	if (lifes == 0)
+		return true;
 	return n > 123;
 };
 

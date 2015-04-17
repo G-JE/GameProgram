@@ -44,21 +44,36 @@ public:
 	// Is the pill being shown?
 	bool pillShown[124];
 	// ghosts 
+<<<<<<< HEAD
 	SDL_Rect ghost[3];
+	int lifes;	
+=======
+	SDL_Rect ghost[4];
 	bool SPshown[5];
+>>>>>>> 2dc321f381b3813a5918a3789022e356c337b7ac
 	SDL_Rect SPloc[5];
 	Direction ghostd[4];
 	Direction last_d;
 	bool overlap(SDL_Rect c, SDL_Rect d);
 	void new_path();
 	bool ghostcollision();
+<<<<<<< HEAD
 	
-	bool paccollision(SDL_Rect& rect, Direction direction);
+	int SPshown[5];
 	
-	int lifes;
 private:
 	SDL_Rect checkblock, offset, middle, middle2;
 	
+=======
+	// big food pill
+	bool paccollision(SDL_Rect& rect, Direction direction);
+	void reset();
+	int lives;
+private:
+	SDL_Rect checkblock, offset, middle, middle2;
+	
+	bool Collision(SDL_Rect a, SDL_Rect b);
+>>>>>>> 2dc321f381b3813a5918a3789022e356c337b7ac
 	int score;
 };
 
