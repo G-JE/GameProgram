@@ -53,7 +53,7 @@ public:
 	// big food pill
 	bool paccollision();
 	void reset();
-	int lifes;
+	int lives;
 private:
 	SDL_Rect checkblock, offset, middle, middle2;
 	

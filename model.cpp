@@ -10,7 +10,7 @@ using namespace std;
 Model::Model(int w, int h) {
 
 	score = 0;
-	lifes=3;
+	lives=3;
 	// x-20 y-15
 	pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
 	
@@ -468,7 +468,7 @@ void Model::move_ghost(){
 
 void Model::reset(){
 pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
-lifes--;
+lives--;
 };
 
 

@@ -7,6 +7,7 @@
 #include "model.h"
 #include <map>
 #include <string>
+#include <sstream>
 
 #ifndef _VIEW_H
 #define _VIEW_H
@@ -33,15 +34,18 @@ private:
 	std::map<Direction, SDL_Surface*> pacman;
 	SDL_Surface* pacmanclose;
 	SDL_Surface* Ghost;
+    SDL_Surface* text;
 	Mix_Music * startup;
 	Mix_Chunk * death;
 	Mix_Chunk * chomp;
+	TTF_Font * font;
+	
 
 
 	
 //    Mix_Music * music;
 //    Mix_Chunk * food;
-    TTF_Font * font;
+
 	int frame;
 };
 #endif
