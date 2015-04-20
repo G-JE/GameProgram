@@ -259,7 +259,7 @@ switch (state){
 	break;
 	case RUN:
 	for(int i = 0; i < 4; i++){
-			if (pacman.x == ghost[i].x && pacman.y == ghost[i].y){ 	
+			if (Collision(pacman, ghost[i]))/*pacman.x == ghost[i].x && pacman.y == ghost[i].y*/{ 	
 				resetghost(i);		
 			}
 		}
@@ -298,9 +298,7 @@ switch (state){
 			state = RUN;
 			SPshown[i] = false;
 			
-		}
-		
-		
+		}	
 	}
 	
 	break;
@@ -315,7 +313,14 @@ void Model::go(Direction d){
 
 void Model::reset(){
 		pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
+		ghost[0].x = 320; ghost[0].y = 240; ghost[0].h = 32; ghost[0].w = 32;	
+		ghost[1].x = 576; ghost[1].y = 64; ghost[1].h = 32; ghost[1].w = 32;	
+		ghost[2].x = 64; ghost[2].y = 416; ghost[2].h = 32; ghost[2].w = 32;
+		ghostd[0] = UP;
+		ghostd[1] = DOWN;
+		ghostd[2] = RIGHT;
 		lives--;
+		SDL_Delay(1000);
 };
 
 void Model::resetghost(int i){

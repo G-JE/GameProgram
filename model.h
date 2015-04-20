@@ -61,9 +61,6 @@ public:
 	void resetghost(int i);
 	int score;
 	int lives;
-	
-
-	int lives;
 };
 
 #endif
