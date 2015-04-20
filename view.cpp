@@ -78,8 +78,7 @@ View::View(string title, int width, int height) {
     chomp = Mix_LoadWAV("assets/pacman_chomp.wav");
 	death = Mix_LoadWAV("assets/pacman_death.wav");
     font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
-	
-	
+		
 }
 
 
@@ -154,29 +153,21 @@ void View::show(Model * model) {
 		Mix_PlayChannel( -1, chomp, 0);
 		}
 		//Pacman & Ghost collision
-		for(int i = 0; i < 4; i++){
-			if (model->overlap(model->pacman, model->ghost[i])){ 
-				if(model->direction != STILL){
-				model->reset();
-				model->direction = STILL;
-				Mix_PlayChannel( -1, death, 0);
-				SDL_Delay(2000);
-				}
-			}
-		}
+				
 		for (int i = 0; i < 3; i++){
 		dest.x = model->ghost[i].x;
 		dest.y = model->ghost[i].y;
 		SDL_BlitSurface(Ghost, NULL, screen, &dest);
 		}
-	SDL_Rect lr;
+		
+		SDL_Rect lr;
 	for (int i = 0; i < model->lives; i++){
 		lr.x = 512 + (i*24);
 		lr.y = 450;
 		SDL_BlitSurface(life, NULL, screen, &lr);
 		}
-    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 	
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 
 	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
 	//LIVES
@@ -206,7 +197,7 @@ void View::show(Model * model) {
     fontdest.y = 250;
     SDL_BlitSurface( text2, NULL, screen, &fontdest );
 	*/
-	
+
 	SDL_UpdateWindowSurface(window);
 	}
 	
@@ -237,13 +228,7 @@ void View::show(Model * model) {
 		Mix_PlayChannel( -1, chomp, 0);
 		}
 		//Pacman & Ghost collision
-		for(int i = 0; i < 4; i++){
-			if (model->overlap(model->pacman, model->ghost[i])){ 
-				if(model->direction != STILL){
-				model->resetghost(i);
-				}
-			}
-		}
+		
 		for (int i = 0; i < 3; i++){
 		dest.x = model->ghost[i].x;
 		dest.y = model->ghost[i].y;
@@ -257,11 +242,10 @@ void View::show(Model * model) {
 		}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
 	
-
 	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
 	
 	
 	SDL_UpdateWindowSurface(window);
 	}
-  }
-
+  
+}

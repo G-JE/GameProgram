@@ -49,18 +49,21 @@ public:
 	SDL_Rect ghost[3];
 	bool SPshown[5];
 	SDL_Rect SPloc[5];
+	SDL_Rect middle;
+	SDL_Rect middle2;
+	SDL_Rect checkblock;
+	SDL_Rect offset;
 	Direction ghostd[4];
 	Direction last_d;
 	bool overlap(SDL_Rect c, SDL_Rect d);
-	void new_path();
+	
 	State state;
 	void resetghost(int i);
 	int score;
 	int lives;
 	
-private:
-	SDL_Rect checkblock, offset, middle, middle2;
-	
+
+	int lives;
 };
 
 #endif

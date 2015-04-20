@@ -22,12 +22,6 @@ void Controller::loop() {
     SDL_Event e;
 	e.type=NULL;
 	
-	
-	
-	
-	
-	
-	
     unsigned int lastTime = 0, currentTime;
     std::map<SDL_Keycode, Direction> direction;
     direction[SDLK_UP] = UP;
