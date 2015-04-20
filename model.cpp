@@ -207,6 +207,8 @@ bool Model::paccollision(SDL_Rect& rect, Direction direction){
 //*if next Rect is a barrier, direction is STILL
 void Model::move_pac() {
 
+switch (state){
+	case SEEK:
 	for(int i = 0; i < 4; i++){
 			if (pacman.x == ghost[i].x && pacman.y == ghost[i].y){ 	
 				reset();
@@ -251,6 +253,55 @@ void Model::move_pac() {
 		}
 		//else
 		//Change state to get ghosts
+	}
+	break;
+	case RUN:
+	for(int i = 0; i < 4; i++){
+			if (pacman.x == ghost[i].x && pacman.y == ghost[i].y){ 	
+				resetghost(i);		
+			}
+		}
+
+
+	switch(direction) {
+	case STILL: return;
+    case UP: if (!paccollision(pacman, direction)){pacman.y += -2;} break;
+    case DOWN: if (!paccollision(pacman, direction)){pacman.y += 2;} break;
+    case LEFT: if (!paccollision(pacman, direction)){pacman.x += -2;} break;
+    case RIGHT: if (!paccollision(pacman, direction)){pacman.x += 2;}break;
+	
+	
+    }
+	
+		
+	
+	for(int i = 0; i < 124; i++){
+		if (pacman.x == pills[i].x && pacman.y == pills[i].y){
+			if (state == RUN && pillShown[i] == true){
+				time += 1;
+				if (time == 7){
+					state = SEEK;
+					time = 0;
+				}
+				
+			}
+			pillShown[i] = false;
+			score += 100;
+			
+		}
+	}
+	for(int i = 0; i < 5; i++){
+		if (pacman.x == SPloc[i].x && pacman.y == SPloc[i].y){
+			if (SPshown[i] == true)
+			state = RUN;
+			SPshown[i] = false;
+			
+		}
+		
+		
+	}
+	
+	break;
 	}
 	
 };
@@ -366,7 +417,8 @@ void Model::new_path(int k){
 		c3 = ghost[k]; c3.x -= 1; //left path3 will be left
 		c4 = ghost[k]; c4.x += 1; //right path4 will be right
 	
-	
+	switch (state){
+		case SEEK:
 		for (int i = 0; i < 31; i++){
 				if (!overlap(c1, Rect[i])){
 					path1 = abs (c1.x - pacman.x) + abs (c1.y - pacman.y);
@@ -419,6 +471,62 @@ void Model::new_path(int k){
 			break;
 	
 	}
+		break;
+	case RUN:
+				for (int i = 0; i < 31; i++){
+				if (!overlap(c1, Rect[i])){
+					path1 = abs (c1.x - pacman.x) + abs (c1.y - pacman.y);
+				}
+				
+				if (!overlap(c2, Rect[i])){
+					path2 = abs (c2.x - pacman.x) + abs (c2.y - pacman.y);
+				}
+				if (!overlap(c3, Rect[i])){
+					path3 = abs (c3.x - pacman.x) + abs (c3.y - pacman.y);
+				}
+				if (!overlap(c4, Rect[i])){
+					path4 = abs (c4.x - pacman.x) + abs (c4.y - pacman.y);
+				}
+				
+			}
+	
+	switch (ghostd[k]) {
+		case UP:
+			if (path3 < path4){
+				ghostd[k] = RIGHT;
+			}
+			else {
+				ghostd[k] = LEFT;
+			}
+			break;
+		case DOWN:
+			if (path3 < path4){
+				ghostd[k] = RIGHT;
+			}
+			else {
+				ghostd[k] = LEFT;
+			}
+			break;
+		case LEFT:
+			if (path1 < path2){
+				ghostd[k] = DOWN;
+			}
+			else {
+				ghostd[k] = UP;
+			}
+			break;
+		case RIGHT:
+			if (path1 < path2){
+				ghostd[k] = DOWN;
+			}
+			else {
+				ghostd[k] = UP;
+			}
+			break;
+	
+	}
+		break;
+	}
 
 	
 };
@@ -451,7 +559,8 @@ void Model::ghost_bump(int g){
 
 //moves the ghost
 void Model::move_ghost(){
-	
+
+
 	
 	for (int i = 0; i < 3; i++){
 		if (ghostcollision(ghost[i], ghostd[i]) == true ){

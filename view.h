@@ -27,6 +27,7 @@ private:
 	SDL_Surface* background;
 	SDL_Surface* background2;
 	SDL_Surface* pacmanclose;
+	SDL_Surface* words;
 	SDL_Surface* pill;
 	SDL_Surface* spill;
     SDL_Window* window;
@@ -40,7 +41,6 @@ private:
 	Mix_Chunk * death;
 	Mix_Chunk * chomp;
 	SDL_Rect dest;
-
 
     TTF_Font * font;
 	int frame;

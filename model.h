@@ -43,6 +43,7 @@ public:
 	SDL_Rect pills[124];
 	// Is the pill being shown?
 	bool pillShown[124];
+	void newlevel();
 	// ghosts 
 	int time;
 	SDL_Rect ghost[3];
@@ -55,12 +56,12 @@ public:
 	Direction ghostd[4];
 	Direction last_d;
 	bool overlap(SDL_Rect c, SDL_Rect d);
-	void new_path();
+	
 	State state;
 	void resetghost(int i);
+	int score;
 
 	int lives;
-	int score;
 };
 
 #endif

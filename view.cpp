@@ -1,5 +1,5 @@
 #include "view.h"
-
+#include <sstream>
 
 using namespace std;
 // Initialize Barriers
@@ -150,11 +150,18 @@ void View::show(Model * model) {
 		Mix_PlayChannel( -1, chomp, 0);
 		}
 		//Pacman & Ghost collision
-				SDL_Delay(2000);
+				
 		for (int i = 0; i < 3; i++){
 		dest.x = model->ghost[i].x;
 		dest.y = model->ghost[i].y;
 		SDL_BlitSurface(Ghost, NULL, screen, &dest);
+		}
+		
+		SDL_Rect lr;
+	for (int i = 0; i < model->lives; i++){
+		lr.x = 512 + (i*24);
+		lr.y = 450;
+		SDL_BlitSurface(life, NULL, screen, &lr);
 		}
 	
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
