@@ -54,10 +54,10 @@ public:
 	bool overlap(SDL_Rect c, SDL_Rect d);
 	void new_path();
 	State state;
-	int lives;
 	void resetghost(int i);
 	int score;
 	int lives;
+	
 private:
 	SDL_Rect checkblock, offset, middle, middle2;
 	

@@ -182,12 +182,12 @@ void View::show(Model * model) {
 	//LIVES
 	
 	stringstream s;
-	s << "Lives: " << model->lives;
+	s << "Score: " << model->score;
 	SDL_Color textColor = { 255, 255, 255 };
 	if (model->lives>0){
 		text = TTF_RenderText_Solid(font, s.str().c_str(), textColor);
-		fontdest.x = 250;
-		fontdest.y = 250;
+		fontdest.x = 0;
+		fontdest.y = 0;
 		SDL_BlitSurface( text, NULL, screen, &fontdest );
 	}
 	else{

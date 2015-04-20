@@ -229,11 +229,8 @@ void Model::move_pac() {
 	
 	for(int i = 0; i < 124; i++){
 		if (pacman.x == pills[i].x && pacman.y == pills[i].y){
-			if (pillShown[i] == true)
-			score += 100;
 			if (state == RUN && pillShown[i] == true){
 				time += 1;
-				score += 100;
 				if (time == 7){
 					state = SEEK;
 					time = 0;
@@ -241,6 +238,7 @@ void Model::move_pac() {
 				
 			}
 			pillShown[i] = false;
+			score += 100;
 			
 		}
 	}
@@ -506,6 +504,15 @@ void Model::move_ghost(){
 	
 };
 
+<<<<<<< HEAD
+=======
+void Model::reset(){
+pacman.x = 288; pacman.y = 416; pacman.h = 32; pacman.w = 32;
+lives--;
+};
+
+
+>>>>>>> eb07b41e48ee30568381ff558097b2cb237131f1
 // Destructor deletes dynamically allocated memory
 Model::~Model() {
 };

@@ -1,5 +1,5 @@
 #include "view.h"
-
+#include <sstream>
 
 using namespace std;
 // Initialize Barriers
@@ -59,44 +59,35 @@ View::View(string title, int width, int height) {
 	
 	//Load ghost
 	Ghost = load("assets/pacman-ghost.png");
+	Ghost2 = load("assets/RUNghost.png");
+	
 <<<<<<< HEAD
-=======
-	
->>>>>>> c3fa8f1e06224b7265f88b182877dde8743189a3
-	
 	SDL_SetColorKey(life, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(Ghost, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+	SDL_SetColorKey(Ghost2, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+=======
+	SDL_SetColorKey(Ghost, SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
+>>>>>>> eb07b41e48ee30568381ff558097b2cb237131f1
 	SDL_SetColorKey(pacman[RIGHT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[STILL], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[LEFT], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[UP], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	SDL_SetColorKey(pacman[DOWN], SDL_TRUE, SDL_MapRGB(screen->format, 0x00,0x00,0x00));
 	background = load("assets/background.jpg");
+	background2 = load("assets/RUNbackground.jpg");
 	
-	
-<<<<<<< HEAD
     startup = Mix_LoadMUS("assets/pacman_beginning.wav");
 	Mix_PlayMusic( startup, 1 );
 
     chomp = Mix_LoadWAV("assets/pacman_chomp.wav");
 	death = Mix_LoadWAV("assets/pacman_death.wav");
+<<<<<<< HEAD
     //font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
+	
+	
 =======
-	startup = Mix_LoadMUS("assets/pacman_beginning.wav");
-		Mix_PlayMusic(startup, 1);
-		
-	chomp = Mix_LoadWAV("assets/pacman_chomp.wav");
-	death = Mix_LoadWAV("assets/pacman_death.wav");
-	
-	
-//    music = Mix_LoadMUS("assets/2Inventions_-_Johaness_Gilther_-_Don_t_leave_me.mp3");
-//    if (music != NULL) {
-//       Mix_PlayMusic( music, -1 );
-//    }
-//    food = Mix_LoadWAV("assets/yummy.wav");
     font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
->>>>>>> c3fa8f1e06224b7265f88b182877dde8743189a3
-	
+>>>>>>> eb07b41e48ee30568381ff558097b2cb237131f1
 }
 
 
@@ -138,7 +129,12 @@ SDL_Surface* View::load(char * path) {
 }
 
 void View::show(Model * model) {
+<<<<<<< HEAD
+	if (model->state == SEEK){
+=======
 	
+	SDL_Rect fontdest;
+>>>>>>> eb07b41e48ee30568381ff558097b2cb237131f1
 	SDL_BlitSurface(background, NULL, screen, NULL);
 	
 	for (int i = 0; i < 124; i++){
@@ -155,14 +151,18 @@ void View::show(Model * model) {
 		}
 	}
 	
+		
 	
+<<<<<<< HEAD
+=======
 	//SDL_BlitSurface(Ghost, NULL, screen, &ghost_init);
 	//SDL_BlitSurface(Pacmanright, NULL, screen, &pacinit);
 	
-		
 	//TODO:
 	//draw the ghosts
-<<<<<<< HEAD
+	
+	//pacman&pill collision
+>>>>>>> eb07b41e48ee30568381ff558097b2cb237131f1
 	for (int i = 0; i < 124; i++){
 		 if (model->direction == RIGHT && model->pacman.x + 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
 		Mix_PlayChannel( -1, chomp, 0);
@@ -172,7 +172,7 @@ void View::show(Model * model) {
 		Mix_PlayChannel( -1, chomp, 0);
 		if (model->direction == DOWN && model->pacman.x == model->pills[i].x && model->pacman.y +4 == model->pills[i].y && model->pillShown[i]==true)
 		Mix_PlayChannel( -1, chomp, 0);
-	}
+		}
 		//Pacman & Ghost collision
 		for(int i = 0; i < 4; i++){
 			if (model->overlap(model->pacman, model->ghost[i])){ 
@@ -180,37 +180,122 @@ void View::show(Model * model) {
 				model->reset();
 				model->direction = STILL;
 				Mix_PlayChannel( -1, death, 0);
+				SDL_Delay(2000);
 				}
 			}
 		}
-	for(int i = 0; i < 4; i++){
-=======
-	for (int i = 0; i < 3; i++){
-	SDL_Rect dest;
->>>>>>> c3fa8f1e06224b7265f88b182877dde8743189a3
-	dest.x = model->ghost[i].x;
-	dest.y = model->ghost[i].y;
-	SDL_BlitSurface(Ghost, NULL, screen, &dest);
-	}
+<<<<<<< HEAD
+		for (int i = 0; i < 3; i++){
+		dest.x = model->ghost[i].x;
+		dest.y = model->ghost[i].y;
+		SDL_BlitSurface(Ghost, NULL, screen, &dest);
+		}
 	SDL_Rect lr;
 	for (int i = 0; i < model->lives; i++){
 		lr.x = 512 + (i*24);
 		lr.y = 450;
 		SDL_BlitSurface(life, NULL, screen, &lr);
-	}
+		}
     // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+	
+
+	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
+	
+	
+	SDL_UpdateWindowSurface(window);
+	}
+	
+	if (model->state == RUN){
+		SDL_BlitSurface(background2, NULL, screen, NULL);
+	
+	for (int i = 0; i < 124; i++){
+		if (model->pillShown[i] == true){
+		SDL_BlitSurface(pill, NULL, screen, &(model->pills[i]));
+		}
+		
+	
+=======
+		
+	for(int i = 0; i < 4; i++){
+	SDL_Rect dest;
+	dest.x = model->ghost[i].x;
+	dest.y = model->ghost[i].y;
+	SDL_BlitSurface(Ghost, NULL, screen, &dest);
+>>>>>>> eb07b41e48ee30568381ff558097b2cb237131f1
+	}
+			
+	for (int m = 0; m < 5; m++){
+		if (model->SPshown[m] == true){
+		SDL_BlitSurface(spill, NULL, screen, &model->SPloc[m]);
+		}
+	}
+	for (int i = 0; i < 124; i++){
+		 if (model->direction == RIGHT && model->pacman.x + 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		if (model->direction == LEFT && model->pacman.x - 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		if (model->direction == UP && model->pacman.x == model->pills[i].x && model->pacman.y -4 == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		if (model->direction == DOWN && model->pacman.x == model->pills[i].x && model->pacman.y +4 == model->pills[i].y && model->pillShown[i]==true)
+		Mix_PlayChannel( -1, chomp, 0);
+		}
+		//Pacman & Ghost collision
+		for(int i = 0; i < 4; i++){
+			if (model->overlap(model->pacman, model->ghost[i])){ 
+				if(model->direction != STILL){
+				model->resetghost(i);
+				}
+			}
+		}
+		for (int i = 0; i < 3; i++){
+		dest.x = model->ghost[i].x;
+		dest.y = model->ghost[i].y;
+		SDL_BlitSurface(Ghost2, NULL, screen, &dest);
+		}
+	SDL_Rect lr;
+	for (int i = 0; i < model->lives; i++){
+		lr.x = 512 + (i*24);
+		lr.y = 450;
+		SDL_BlitSurface(life, NULL, screen, &lr);
+		}
+    // Probably call SDL_FillRect or SDL_BlitSurface a bunch here :-)
+	
+
+	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
 <<<<<<< HEAD
 	
 =======
+	//LIVES
 	
-	
-	
-
->>>>>>> c3fa8f1e06224b7265f88b182877dde8743189a3
-	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
-	
+	stringstream s;
+	s << "Lives: " << model->lives;
+	SDL_Color textColor = { 255, 255, 255 };
+	if (model->lives>0){
+		text = TTF_RenderText_Solid(font, s.str().c_str(), textColor);
+		fontdest.x = 250;
+		fontdest.y = 250;
+		SDL_BlitSurface( text, NULL, screen, &fontdest );
+	}
+	else{
+		text = TTF_RenderText_Solid(font,"GAME OVER", textColor);
+		fontdest.x = 230;
+		fontdest.y = 250;
+		SDL_BlitSurface( text, NULL, screen, &fontdest );
+	}
+	/*SDL_Color textColor = { 255, 255, 255 };
+    text1 = TTF_RenderText_Solid( font, "Lives: ", textColor );
+	fontdest.x = 250;
+    fontdest.y = 250;
+    SDL_BlitSurface( text1, NULL, screen, &fontdest );
+	text2 = TTF_RenderText_Solid( font, model->lives, textColor );
+	fontdest.x = 275;
+    fontdest.y = 250;
+    SDL_BlitSurface( text2, NULL, screen, &fontdest );
+	*/
 	frame ++;
+>>>>>>> eb07b41e48ee30568381ff558097b2cb237131f1
 	
 	SDL_UpdateWindowSurface(window);
+	}
   }
 
