@@ -77,7 +77,7 @@ View::View(string title, int width, int height) {
 
     chomp = Mix_LoadWAV("assets/pacman_chomp.wav");
 	death = Mix_LoadWAV("assets/pacman_death.wav");
-    //font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
+    font = TTF_OpenFont( "assets/LiberationSans-Regular.ttf", 28 );
 	
 	
 }
@@ -122,6 +122,7 @@ SDL_Surface* View::load(char * path) {
 
 void View::show(Model * model) {
 	if (model->state == SEEK){
+	SDL_Rect fontdest;
 	SDL_BlitSurface(background, NULL, screen, NULL);
 	
 	for (int i = 0; i < 124; i++){
@@ -140,6 +141,8 @@ void View::show(Model * model) {
 	
 		
 	
+	
+	//pacman&pill collision
 	for (int i = 0; i < 124; i++){
 		 if (model->direction == RIGHT && model->pacman.x + 4 == model->pills[i].x && model->pacman.y == model->pills[i].y && model->pillShown[i]==true)
 		Mix_PlayChannel( -1, chomp, 0);
@@ -176,7 +179,33 @@ void View::show(Model * model) {
 	
 
 	SDL_BlitSurface(pacman[model->direction], NULL, screen, &(model->pacman));
+	//LIVES
 	
+	stringstream s;
+	s << "Lives: " << model->lives;
+	SDL_Color textColor = { 255, 255, 255 };
+	if (model->lives>0){
+		text = TTF_RenderText_Solid(font, s.str().c_str(), textColor);
+		fontdest.x = 250;
+		fontdest.y = 250;
+		SDL_BlitSurface( text, NULL, screen, &fontdest );
+	}
+	else{
+		text = TTF_RenderText_Solid(font,"GAME OVER", textColor);
+		fontdest.x = 230;
+		fontdest.y = 250;
+		SDL_BlitSurface( text, NULL, screen, &fontdest );
+	}
+	/*SDL_Color textColor = { 255, 255, 255 };
+    text1 = TTF_RenderText_Solid( font, "Lives: ", textColor );
+	fontdest.x = 250;
+    fontdest.y = 250;
+    SDL_BlitSurface( text1, NULL, screen, &fontdest );
+	text2 = TTF_RenderText_Solid( font, model->lives, textColor );
+	fontdest.x = 275;
+    fontdest.y = 250;
+    SDL_BlitSurface( text2, NULL, screen, &fontdest );
+	*/
 	
 	SDL_UpdateWindowSurface(window);
 	}

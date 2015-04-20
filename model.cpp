@@ -504,6 +504,7 @@ void Model::move_ghost(){
 	
 };
 
+lives--;
 // Destructor deletes dynamically allocated memory
 Model::~Model() {
 };

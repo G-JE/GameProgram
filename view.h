@@ -7,6 +7,7 @@
 #include "model.h"
 #include <map>
 #include <string>
+#include <sstream>
 
 #ifndef _VIEW_H
 #define _VIEW_H
@@ -41,8 +42,9 @@ private:
 	Mix_Chunk * death;
 	Mix_Chunk * chomp;
 	SDL_Rect dest;
+	
 
-    TTF_Font * font;
+
 	int frame;
 };
 #endif
